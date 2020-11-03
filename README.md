@@ -42,7 +42,7 @@ The DP OneClickForApp API SDK supports the following features:
 
 * Retrieve page formats
 * Retrieve contract products
-* Create _Internetmarke_ postal stamp
+* Create _Internetmarke_ postal stamp in PDF format
 
 
 ### Retrieve Page Formats
