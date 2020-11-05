@@ -24,9 +24,9 @@ interface PageFormatInterface
     /**
      * Obtain the page format's id.
      *
-     * @return string
+     * @return int
      */
-    public function getId(): string;
+    public function getId(): int;
 
     /**
      * Obtain the page format's name.

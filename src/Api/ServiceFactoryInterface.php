@@ -23,13 +23,13 @@ interface ServiceFactoryInterface
      * @param CredentialsInterface $credentials
      * @param LoggerInterface $logger
      *
-     * @return InfoServiceInterface
+     * @return AccountInformationServiceInterface
      * @throws ServiceException
      */
-    public function createInfoService(
+    public function createAccountInformationService(
         CredentialsInterface $credentials,
         LoggerInterface $logger
-    ): InfoServiceInterface;
+    ): AccountInformationServiceInterface;
 
     /**
      * Create the service instance to purchase INTERNETMARKE stamps.
