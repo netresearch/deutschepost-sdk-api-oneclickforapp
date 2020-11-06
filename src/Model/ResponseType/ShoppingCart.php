@@ -1,62 +1,32 @@
 <?php
 
+/**
+ * See LICENSE.md for license details.
+ */
+
+declare(strict_types=1);
+
 namespace DeutschePost\Sdk\OneClickForApp\Model\ResponseType;
 
 class ShoppingCart
 {
-
-    /**
-     * @var ShopOrderId $shopOrderId
-     */
-    protected $shopOrderId = null;
-
     /**
      * @var VoucherList $voucherList
      */
-    protected $voucherList = null;
+    private $voucherList;
 
     /**
-     * @param VoucherList $voucherList
+     * @var string|null $shopOrderId
      */
-    public function __construct($voucherList)
+    private $shopOrderId;
+
+    public function getVoucherList(): VoucherList
     {
-      $this->voucherList = $voucherList;
+        return $this->voucherList;
     }
 
-    /**
-     * @return ShopOrderId
-     */
-    public function getShopOrderId()
+    public function getShopOrderId(): ?string
     {
-      return $this->shopOrderId;
+        return $this->shopOrderId;
     }
-
-    /**
-     * @param ShopOrderId $shopOrderId
-     * @return \DeutschePost\Sdk\OneClickForApp\Model\ResponseType\ShoppingCart
-     */
-    public function setShopOrderId($shopOrderId)
-    {
-      $this->shopOrderId = $shopOrderId;
-      return $this;
-    }
-
-    /**
-     * @return VoucherList
-     */
-    public function getVoucherList()
-    {
-      return $this->voucherList;
-    }
-
-    /**
-     * @param VoucherList $voucherList
-     * @return \DeutschePost\Sdk\OneClickForApp\Model\ResponseType\ShoppingCart
-     */
-    public function setVoucherList($voucherList)
-    {
-      $this->voucherList = $voucherList;
-      return $this;
-    }
-
 }

@@ -13,6 +13,8 @@ use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrievePageFormatsResponse;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
 use DeutschePost\Sdk\OneClickForApp\Soap\AbstractClient;
 use DeutschePost\Sdk\OneClickForApp\Soap\AbstractDecorator;
 use Psr\Log\LoggerInterface;
@@ -102,7 +104,7 @@ class LoggerDecorator extends AbstractDecorator
         return $this->logCommunication($performRequest);
     }
 
-    public function checkoutShoppingCartPDF($requestType)
+    public function checkoutShoppingCartPDF(ShoppingCartPDFRequest $requestType): ShoppingCartPDFResponse
     {
         $performRequest = function () use ($requestType) {
             return parent::checkoutShoppingCartPDF($requestType);

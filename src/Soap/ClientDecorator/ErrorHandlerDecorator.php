@@ -11,6 +11,8 @@ namespace DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator;
 use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationErrorException;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
 use DeutschePost\Sdk\OneClickForApp\Soap\AbstractDecorator;
 
 class ErrorHandlerDecorator extends AbstractDecorator
@@ -30,7 +32,7 @@ class ErrorHandlerDecorator extends AbstractDecorator
         }
     }
 
-    public function checkoutShoppingCartPDF($requestType)
+    public function checkoutShoppingCartPDF(ShoppingCartPDFRequest $requestType): ShoppingCartPDFResponse
     {
         try {
             return parent::checkoutShoppingCartPDF($requestType);

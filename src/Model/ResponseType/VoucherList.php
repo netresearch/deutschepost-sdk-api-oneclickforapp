@@ -1,37 +1,33 @@
 <?php
 
+/**
+ * See LICENSE.md for license details.
+ */
+
+declare(strict_types=1);
+
 namespace DeutschePost\Sdk\OneClickForApp\Model\ResponseType;
 
 class VoucherList
 {
-
     /**
-     * @var VoucherType[] $voucher
+     * @var VoucherType|VoucherType[] $voucher
      */
-    protected $voucher = null;
-
-    
-    public function __construct()
-    {
-    
-    }
+    private $voucher;
 
     /**
      * @return VoucherType[]
      */
-    public function getVoucher()
+    public function getVouchers(): array
     {
-      return $this->voucher;
-    }
+        if (empty($this->voucher)) {
+            return [];
+        }
 
-    /**
-     * @param VoucherType[] $voucher
-     * @return \DeutschePost\Sdk\OneClickForApp\Model\ResponseType\VoucherList
-     */
-    public function setVoucher(array $voucher = null)
-    {
-      $this->voucher = $voucher;
-      return $this;
-    }
+        if ($this->voucher instanceof VoucherType) {
+            return [$this->voucher];
+        }
 
+        return $this->voucher;
+    }
 }

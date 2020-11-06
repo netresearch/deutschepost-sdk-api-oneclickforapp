@@ -1,62 +1,32 @@
 <?php
 
+/**
+ * See LICENSE.md for license details.
+ */
+
+declare(strict_types=1);
+
 namespace DeutschePost\Sdk\OneClickForApp\Model\ResponseType;
 
 class VoucherType
 {
-
     /**
      * @var string $voucherId
      */
-    protected $voucherId = null;
+    private $voucherId;
 
     /**
-     * @var string $trackId
+     * @var string|null $trackId
      */
-    protected $trackId = null;
+    private $trackId;
 
-    /**
-     * @param string $voucherId
-     */
-    public function __construct($voucherId)
+    public function getVoucherId(): string
     {
-      $this->voucherId = $voucherId;
+        return $this->voucherId;
     }
 
-    /**
-     * @return string
-     */
-    public function getVoucherId()
+    public function getTrackId(): ?string
     {
-      return $this->voucherId;
+        return $this->trackId;
     }
-
-    /**
-     * @param string $voucherId
-     * @return \DeutschePost\Sdk\OneClickForApp\Model\ResponseType\VoucherType
-     */
-    public function setVoucherId($voucherId)
-    {
-      $this->voucherId = $voucherId;
-      return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTrackId()
-    {
-      return $this->trackId;
-    }
-
-    /**
-     * @param string $trackId
-     * @return \DeutschePost\Sdk\OneClickForApp\Model\ResponseType\VoucherType
-     */
-    public function setTrackId($trackId)
-    {
-      $this->trackId = $trackId;
-      return $this;
-    }
-
 }

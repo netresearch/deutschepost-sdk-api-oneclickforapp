@@ -13,6 +13,8 @@ use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrievePageFormatsResponse;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
 
 /**
  * AbstractDecorator
@@ -50,7 +52,7 @@ abstract class AbstractDecorator extends AbstractClient
         return $this->client->retrievePageFormats();
     }
 
-    public function checkoutShoppingCartPDF($requestType)
+    public function checkoutShoppingCartPDF(ShoppingCartPDFRequest $requestType): ShoppingCartPDFResponse
     {
         return $this->client->checkoutShoppingCartPDF($requestType);
     }

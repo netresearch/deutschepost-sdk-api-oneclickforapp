@@ -14,13 +14,6 @@ namespace DeutschePost\Sdk\OneClickForApp\Api\Data;
 interface VoucherInterface
 {
     /**
-     * Use the sequence number to associate the voucher with a request position.
-     *
-     * @return string
-     */
-    public function getSequenceNumber(): string;
-
-    /**
      * Obtain the generated voucher id.
      *
      * @return string
@@ -37,7 +30,11 @@ interface VoucherInterface
     /**
      * Obtain the PDF label binary for the item.
      *
+     * Item labels can only be accessed when a single item page format was used for the order.
+     * For page formats that contain multiple items on one page, use the order's label.
+     *
+     * @see OrderInterface::getLabel()
      * @return string
      */
-    public function getLabel(): string;
+    public function getLabel(): ?string;
 }

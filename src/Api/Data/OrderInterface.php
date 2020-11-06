@@ -28,19 +28,23 @@ interface OrderInterface
     public function getWalletBalance(): int;
 
     /**
+     * Obtain the PDF label binary with all stamps created for this order.
+     *
      * @return string
      */
     public function getLabel(): string;
 
     /**
-     * @return string|null
-     */
-    public function getManifest(): ?string;
-
-    /**
-     * Obtain the ordered items.
+     * Obtain the vouchers created for this order.
      *
      * @return VoucherInterface[]
      */
     public function getItems(): array;
+
+    /**
+     * Obtain the PDF manifest binary.
+     *
+     * @return string|null
+     */
+    public function getManifest(): ?string;
 }

@@ -14,6 +14,8 @@ use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrievePageFormatsResponse;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
 use DeutschePost\Sdk\OneClickForApp\Soap\AbstractClient;
 use DeutschePost\Sdk\OneClickForApp\Soap\AbstractDecorator;
 
@@ -81,7 +83,7 @@ class AuthenticationDecorator extends AbstractDecorator
         return parent::retrievePageFormats();
     }
 
-    public function checkoutShoppingCartPDF($requestType)
+    public function checkoutShoppingCartPDF(ShoppingCartPDFRequest $requestType): ShoppingCartPDFResponse
     {
         $this->setAuthHeaders();
         return parent::checkoutShoppingCartPDF($requestType);

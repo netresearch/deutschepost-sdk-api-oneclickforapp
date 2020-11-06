@@ -11,27 +11,38 @@ namespace DeutschePost\Sdk\OneClickForApp\Api;
 /**
  * @api
  */
-interface OrderItemBuilderInterface
+interface ShoppingCartPositionBuilderInterface
 {
     /**
-     * Set the item identifier and product code to be used for the item and its cost (contract product price).
+     * @return ShoppingCartPositionBuilderInterface
+     */
+    public static function getInstance(): ShoppingCartPositionBuilderInterface;
+
+    /**
+     * Obtain the collected total of all items.
      *
-     * @param string $itemId Unique item identifier to allocate the associated voucher in the response
+     * @return int
+     */
+    public function getTotalAmount(): int;
+
+    /**
+     * Set the product code to be used for the item and its cost (contract product price).
+     *
      * @param int $productId ID of the PPL sales product (ProdWS ID)
      * @param int $price Sales product price or contract product price (if available)
-     * @return OrderItemBuilderInterface
+     * @return ShoppingCartPositionBuilderInterface
      */
-    public function setItemDetails(string $itemId, int $productId, int $price): OrderItemBuilderInterface;
+    public function setItemDetails(int $productId, int $price): ShoppingCartPositionBuilderInterface;
 
     /**
      * Select an image / a motif from the image gallery (optional).
      *
      * This setting does only apply to label formats that allow images.
      *
-     * @param int $id
-     * @return OrderItemBuilderInterface
+     * @param int $imageId
+     * @return ShoppingCartPositionBuilderInterface
      */
-    public function setImageId(int $id): OrderItemBuilderInterface;
+    public function setImageId(int $imageId): ShoppingCartPositionBuilderInterface;
 
     /**
      * Set shipper address (conditionally mandatory).
@@ -49,7 +60,7 @@ interface OrderItemBuilderInterface
      * @param string|null $salutation
      * @param string|null $title
      * @param string|null $streetAddition
-     * @return OrderItemBuilderInterface
+     * @return ShoppingCartPositionBuilderInterface
      */
     public function setShipperAddress(
         string $company,
@@ -63,7 +74,7 @@ interface OrderItemBuilderInterface
         string $salutation = null,
         string $title = null,
         string $streetAddition = null
-    ): OrderItemBuilderInterface;
+    ): ShoppingCartPositionBuilderInterface;
 
     /**
      * Set consignee address for a shipment (conditionally mandatory).
@@ -81,7 +92,7 @@ interface OrderItemBuilderInterface
      * @param string|null $title
      * @param string|null $company
      * @param string|null $streetAddition
-     * @return OrderItemBuilderInterface
+     * @return ShoppingCartPositionBuilderInterface
      */
     public function setRecipientAddress(
         string $lastName,
@@ -95,7 +106,7 @@ interface OrderItemBuilderInterface
         string $title = null,
         string $company = null,
         string $streetAddition = null
-    ): OrderItemBuilderInterface;
+    ): ShoppingCartPositionBuilderInterface;
 
     /**
      * Specify column/row on the page (optional).
@@ -104,23 +115,23 @@ interface OrderItemBuilderInterface
      *
      * @param int $column position x
      * @param int $row position y
-     * @return OrderItemBuilderInterface
+     * @return ShoppingCartPositionBuilderInterface
      */
-    public function setLabelPosition(int $column, int $row): OrderItemBuilderInterface;
+    public function setLabelPosition(int $column, int $row): ShoppingCartPositionBuilderInterface;
 
     /**
      * Specify that the stamp should be positioned in the franking zone of the PDF page.
      *
-     * @return OrderItemBuilderInterface
+     * @return ShoppingCartPositionBuilderInterface
      */
-    public function setVoucherLayoutFrankingZone(): OrderItemBuilderInterface;
+    public function setVoucherLayoutFrankingZone(): ShoppingCartPositionBuilderInterface;
 
     /**
      * Specify that the stamp should be positioned in the address zone of the PDF page.
      *
-     * @return OrderItemBuilderInterface
+     * @return ShoppingCartPositionBuilderInterface
      */
-    public function setVoucherLayoutAddressZone(): OrderItemBuilderInterface;
+    public function setVoucherLayoutAddressZone(): ShoppingCartPositionBuilderInterface;
 
     /**
      * Create the order item and reset the builder data.

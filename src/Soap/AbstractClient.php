@@ -14,6 +14,8 @@ use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrievePageFormatsResponse;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
 
 abstract class AbstractClient
 {
@@ -53,9 +55,12 @@ abstract class AbstractClient
     /**
      * Action to generate Internetmarke stamps.
      *
-     * @param $requestType
+     * @param ShoppingCartPDFRequest $requestType
+     * @return ShoppingCartPDFResponse
+     *
+     * @throws AuthenticationErrorException
      * @throws \SoapFault
      * @throws \Exception
      */
-    abstract public function checkoutShoppingCartPDF($requestType);
+    abstract public function checkoutShoppingCartPDF(ShoppingCartPDFRequest $requestType): ShoppingCartPDFResponse;
 }
