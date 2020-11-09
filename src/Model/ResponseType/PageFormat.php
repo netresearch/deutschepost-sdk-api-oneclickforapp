@@ -47,7 +47,7 @@ class PageFormat
 
     public function getId(): int
     {
-      return $this->id;
+        return $this->id;
     }
 
     public function getName(): string
@@ -57,22 +57,22 @@ class PageFormat
 
     public function isAddressPossible(): bool
     {
-      return $this->isAddressPossible;
+        return $this->isAddressPossible;
     }
 
     public function isImagePossible(): bool
     {
-      return $this->isImagePossible;
+        return $this->isImagePossible;
     }
 
     public function getPageType(): string
     {
-      return $this->pageType;
+        return $this->pageType;
     }
 
     public function getPageLayout(): PageLayout
     {
-      return $this->pageLayout;
+        return $this->pageLayout;
     }
 
     public function getDescription(): ?string

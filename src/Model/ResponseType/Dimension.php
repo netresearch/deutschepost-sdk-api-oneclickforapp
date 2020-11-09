@@ -22,11 +22,11 @@ class Dimension
 
     public function getX(): float
     {
-      return $this->x;
+        return $this->x;
     }
 
     public function getY(): float
     {
-      return $this->y;
+        return $this->y;
     }
 }

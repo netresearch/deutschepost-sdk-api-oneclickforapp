@@ -13,7 +13,7 @@ class AuthenticateUserResponse
     /**
      * @var string $userToken
      */
-    protected $userToken = null;
+    private $userToken;
 
     /**
      * @var int $walletBalance
@@ -32,21 +32,21 @@ class AuthenticateUserResponse
 
     public function getUserToken(): string
     {
-      return $this->userToken;
+        return $this->userToken;
     }
 
     public function getWalletBalance(): int
     {
-      return $this->walletBalance;
+        return $this->walletBalance;
     }
 
     public function getShowTermsAndConditions(): bool
     {
-      return $this->showTermsAndConditions;
+        return $this->showTermsAndConditions;
     }
 
     public function getInfoMessage(): ?string
     {
-      return $this->infoMessage;
+        return $this->infoMessage;
     }
 }

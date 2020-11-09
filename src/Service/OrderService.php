@@ -59,7 +59,7 @@ class OrderService implements OrderServiceInterface
             $orderTotal
         );
         $request->setCreateManifest($createManifest);
-        $request->setCreateShippingList($createShippingList ? ShippingList::a2 : ShippingList::a0);
+        $request->setCreateShippingList($createShippingList ? ShippingList::A2 : ShippingList::A0);
 
         try {
             $response = $this->client->checkoutShoppingCartPDF($request);

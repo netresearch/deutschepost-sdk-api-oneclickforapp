@@ -17,6 +17,6 @@ class RetrieveContractProductsRequest
 
     public function __construct(string $userToken)
     {
-      $this->userToken = $userToken;
+        $this->userToken = $userToken;
     }
 }

@@ -37,26 +37,26 @@ class PageLayout
 
     public function getSize(): Dimension
     {
-      return $this->size;
+        return $this->size;
     }
 
     public function getOrientation(): string
     {
-      return $this->orientation;
+        return $this->orientation;
     }
 
     public function getLabelSpacing(): Dimension
     {
-      return $this->labelSpacing;
+        return $this->labelSpacing;
     }
 
     public function getLabelCount(): Position
     {
-      return $this->labelCount;
+        return $this->labelCount;
     }
 
     public function getMargin(): BorderDimension
     {
-      return $this->margin;
+        return $this->margin;
     }
 }

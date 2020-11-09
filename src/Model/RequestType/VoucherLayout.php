@@ -10,7 +10,8 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class VoucherLayout
 {
-    const __default = 'AddressZone';
-    const AddressZone = 'AddressZone';
-    const FrankingZone = 'FrankingZone';
+    public const DEFAULT = 'AddressZone';
+
+    public const ADDRESS_ZONE = 'AddressZone';
+    public const FRANKING_ZONE = 'FrankingZone';
 }

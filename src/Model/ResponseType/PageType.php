@@ -10,9 +10,10 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\ResponseType;
 
 class PageType
 {
-    const __default = 'REGULARPAGE';
-    const REGULARPAGE = 'REGULARPAGE';
-    const ENVELOPE = 'ENVELOPE';
-    const LABELPRINTER = 'LABELPRINTER';
-    const LABELPAGE = 'LABELPAGE';
+    public const DEFAULT = 'REGULARPAGE';
+
+    public const REGULARPAGE = 'REGULARPAGE';
+    public const ENVELOPE = 'ENVELOPE';
+    public const LABELPRINTER = 'LABELPRINTER';
+    public const LABELPAGE = 'LABELPAGE';
 }

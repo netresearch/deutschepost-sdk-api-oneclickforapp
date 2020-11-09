@@ -56,7 +56,6 @@ class TokenProvider
         }
 
         return $token;
-
     }
 
     /**

@@ -39,7 +39,7 @@ interface OrderInterface
      *
      * @return VoucherInterface[]
      */
-    public function getItems(): array;
+    public function getVouchers(): array;
 
     /**
      * Obtain the PDF manifest binary.

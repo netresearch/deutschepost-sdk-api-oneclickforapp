@@ -32,21 +32,21 @@ class BorderDimension
 
     public function getTop(): float
     {
-      return $this->top;
+        return $this->top;
     }
 
     public function getBottom(): float
     {
-      return $this->bottom;
+        return $this->bottom;
     }
 
     public function getLeft(): float
     {
-      return $this->left;
+        return $this->left;
     }
 
     public function getRight(): float
     {
-      return $this->right;
+        return $this->right;
     }
 }

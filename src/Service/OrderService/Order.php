@@ -31,7 +31,7 @@ class Order implements OrderInterface
     /**
      * @var VoucherInterface[]
      */
-    private $items;
+    private $vouchers;
 
     /**
      * @var string|null
@@ -42,15 +42,15 @@ class Order implements OrderInterface
      * @param string $id
      * @param int $walletBalance
      * @param string $label
-     * @param VoucherInterface[] $items
+     * @param VoucherInterface[] $vouchers
      * @param string|null $manifest
      */
-    public function __construct(string $id, int $walletBalance, string $label, array $items, ?string $manifest)
+    public function __construct(string $id, int $walletBalance, string $label, array $vouchers, ?string $manifest)
     {
         $this->id = $id;
         $this->walletBalance = $walletBalance;
         $this->label = $label;
-        $this->items = $items;
+        $this->vouchers = $vouchers;
         $this->manifest = $manifest;
     }
 
@@ -69,9 +69,9 @@ class Order implements OrderInterface
         return $this->label;
     }
 
-    public function getItems(): array
+    public function getVouchers(): array
     {
-        return $this->items;
+        return $this->vouchers;
     }
 
     public function getManifest(): ?string

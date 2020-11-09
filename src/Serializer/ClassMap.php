@@ -47,10 +47,6 @@ class ClassMap
             'Position' => Model\ResponseType\Position::class,
             'BorderDimension' => Model\ResponseType\BorderDimension::class,
             'ContractProductResponseType' => Model\ResponseType\ContractProductResponseType::class,
-
-            // @todo(nr): delete, remove
-            'CreateShopOrderIdRequest' => 'DeutschePost\\Sdk\\OneClickForApp\\Model\\ResponseType\\CreateShopOrderIdRequest',
-            'CreateShopOrderIdResponse' => 'DeutschePost\\Sdk\\OneClickForApp\\Model\\ResponseType\\CreateShopOrderIdResponse',
         ];
     }
 }

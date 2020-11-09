@@ -60,20 +60,20 @@ class ShoppingCartPDFRequest
      */
     public function __construct(string $userToken, int $pageFormatId, array $positions, int $total)
     {
-      $this->userToken = $userToken;
-      $this->pageFormatId = $pageFormatId;
-      $this->positions = $positions;
-      $this->total = $total;
+        $this->userToken = $userToken;
+        $this->pageFormatId = $pageFormatId;
+        $this->positions = $positions;
+        $this->total = $total;
     }
 
     public function setShopOrderId(string $shopOrderId): void
     {
-      $this->shopOrderId = $shopOrderId;
+        $this->shopOrderId = $shopOrderId;
     }
 
     public function setPpl(int $ppl): void
     {
-      $this->ppl = $ppl;
+        $this->ppl = $ppl;
     }
 
     /**
@@ -81,7 +81,7 @@ class ShoppingCartPDFRequest
      */
     public function setCreateManifest(bool $createManifest): void
     {
-      $this->createManifest = $createManifest;
+        $this->createManifest = $createManifest;
     }
 
     /**
@@ -89,6 +89,6 @@ class ShoppingCartPDFRequest
      */
     public function setCreateShippingList(string $createShippingList): void
     {
-      $this->createShippingList = $createShippingList;
+        $this->createShippingList = $createShippingList;
     }
 }

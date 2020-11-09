@@ -10,8 +10,9 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class ShippingList
 {
-    const __default = 'a0';
-    const a0 = '0';
-    const a1 = '1';
-    const a2 = '2';
+    public const DEFAULT = '0';
+
+    public const A0 = '0';
+    public const A1 = '1';
+    public const A2 = '2';
 }

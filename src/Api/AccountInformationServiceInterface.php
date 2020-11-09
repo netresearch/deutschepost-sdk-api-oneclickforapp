@@ -29,5 +29,5 @@ interface AccountInformationServiceInterface
      *
      * @throws ServiceException
      */
-    public function getProductPrices(): array;
+    public function getContractProducts(): array;
 }

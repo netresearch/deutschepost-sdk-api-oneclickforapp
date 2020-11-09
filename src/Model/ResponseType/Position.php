@@ -20,11 +20,11 @@ class Position
 
     public function getLabelX(): int
     {
-      return $this->labelX;
+        return $this->labelX;
     }
 
     public function getLabelY(): int
     {
-      return $this->labelY;
+        return $this->labelY;
     }
 }

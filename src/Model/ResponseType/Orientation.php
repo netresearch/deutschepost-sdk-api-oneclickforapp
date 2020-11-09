@@ -8,7 +8,8 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\ResponseType;
 
 class Orientation
 {
-    const __default = 'LANDSCAPE';
-    const LANDSCAPE = 'LANDSCAPE';
-    const PORTRAIT = 'PORTRAIT';
+    public const DEFAULT = 'LANDSCAPE';
+
+    public const LANDSCAPE = 'LANDSCAPE';
+    public const PORTRAIT = 'PORTRAIT';
 }

@@ -46,7 +46,7 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
      */
     private $data = [];
 
-    private function __construct(PageFormatInterface $pageFormat, VoucherPositionCalculator  $voucherPositionCalculator)
+    private function __construct(PageFormatInterface $pageFormat, VoucherPositionCalculator $voucherPositionCalculator)
     {
         $this->pageFormat = $pageFormat;
         $this->voucherPositionCalculator = $voucherPositionCalculator;
@@ -56,6 +56,11 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
     public static function forPageFormat(PageFormatInterface $pageFormat): ShoppingCartPositionBuilderInterface
     {
         return new static($pageFormat, new VoucherPositionCalculator());
+    }
+
+    public function getPageFormatId(): int
+    {
+        return $this->pageFormat->getId();
     }
 
     public function getTotalAmount(): int
@@ -145,14 +150,14 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
 
     public function setVoucherLayoutFrankingZone(): ShoppingCartPositionBuilderInterface
     {
-        $this->data['layout']['zone'] = VoucherLayout::FrankingZone;
+        $this->data['layout']['zone'] = VoucherLayout::FRANKING_ZONE;
 
         return $this;
     }
 
     public function setVoucherLayoutAddressZone(): ShoppingCartPositionBuilderInterface
     {
-        $this->data['layout']['zone'] = VoucherLayout::AddressZone;
+        $this->data['layout']['zone'] = VoucherLayout::ADDRESS_ZONE;
 
         return $this;
     }
@@ -218,7 +223,7 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
 
         $cartPosition = new ShoppingCartPDFPosition(
             $this->data['itemDetails']['productId'],
-            $this->data['layout']['zone'] ?? VoucherLayout::__default,
+            $this->data['layout']['zone'] ?? VoucherLayout::DEFAULT,
             $voucherPosition
         );
 

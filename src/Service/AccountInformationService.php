@@ -62,7 +62,7 @@ class AccountInformationService implements AccountInformationServiceInterface
         }
     }
 
-    public function getProductPrices(): array
+    public function getContractProducts(): array
     {
         $request = new RetrieveContractProductsRequest($this->tokenProvider->getToken());
 
@@ -71,7 +71,7 @@ class AccountInformationService implements AccountInformationServiceInterface
             return $this->productsMapper->map($response->getProducts());
         } catch (AuthenticationErrorException $exception) {
             $this->tokenProvider->resetToken();
-            return $this->getProductPrices();
+            return $this->getContractProducts();
         } catch (\Throwable $exception) {
             // Catch all leftovers, e.g. \SoapFault, \Exception, ...
             throw ServiceExceptionFactory::createServiceException($exception);

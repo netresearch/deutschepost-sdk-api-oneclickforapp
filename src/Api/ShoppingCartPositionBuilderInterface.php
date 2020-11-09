@@ -22,6 +22,13 @@ interface ShoppingCartPositionBuilderInterface
     public static function forPageFormat(PageFormatInterface $pageFormat): ShoppingCartPositionBuilderInterface;
 
     /**
+     * Obtain the ID of the page format that the builder was initialized with.
+     *
+     * @return int
+     */
+    public function getPageFormatId(): int;
+
+    /**
      * Obtain the collected total of all items.
      *
      * @return int
@@ -53,7 +60,7 @@ interface ShoppingCartPositionBuilderInterface
      * This setting does only apply to label formats that allow addresses and will be ignored otherwise.
      *
      * @param string $company
-     * @param string $country
+     * @param string $country 3-digit ISO code
      * @param string $postalCode
      * @param string $city
      * @param string $streetName
