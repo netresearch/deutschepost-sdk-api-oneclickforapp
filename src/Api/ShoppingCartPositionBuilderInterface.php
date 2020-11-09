@@ -8,15 +8,18 @@ declare(strict_types=1);
 
 namespace DeutschePost\Sdk\OneClickForApp\Api;
 
+use DeutschePost\Sdk\OneClickForApp\Api\Data\PageFormatInterface;
+
 /**
  * @api
  */
 interface ShoppingCartPositionBuilderInterface
 {
     /**
+     * @param PageFormatInterface $pageFormat
      * @return ShoppingCartPositionBuilderInterface
      */
-    public static function getInstance(): ShoppingCartPositionBuilderInterface;
+    public static function forPageFormat(PageFormatInterface $pageFormat): ShoppingCartPositionBuilderInterface;
 
     /**
      * Obtain the collected total of all items.
@@ -37,7 +40,7 @@ interface ShoppingCartPositionBuilderInterface
     /**
      * Select an image / a motif from the image gallery (optional).
      *
-     * This setting does only apply to label formats that allow images.
+     * This setting does only apply to label formats that allow images and will be ignored otherwise.
      *
      * @param int $imageId
      * @return ShoppingCartPositionBuilderInterface
@@ -45,9 +48,9 @@ interface ShoppingCartPositionBuilderInterface
     public function setImageId(int $imageId): ShoppingCartPositionBuilderInterface;
 
     /**
-     * Set shipper address (conditionally mandatory).
+     * Set shipper address (optional).
      *
-     * The shipper address can be omitted for orders with a page format that does not support addresses.
+     * This setting does only apply to label formats that allow addresses and will be ignored otherwise.
      *
      * @param string $company
      * @param string $country
@@ -77,9 +80,9 @@ interface ShoppingCartPositionBuilderInterface
     ): ShoppingCartPositionBuilderInterface;
 
     /**
-     * Set consignee address for a shipment (conditionally mandatory).
+     * Set consignee address for a shipment (optional).
      *
-     * The recipient address can be omitted for orders with a page format that does not support addresses.
+     * This setting does only apply to label formats that allow addresses and will be ignored otherwise.
      *
      * @param string $lastName
      * @param string $firstName
@@ -113,11 +116,12 @@ interface ShoppingCartPositionBuilderInterface
      *
      * This setting does only apply to label formats that print multiple labels on one page.
      *
+     * @param int $page page
      * @param int $column position x
      * @param int $row position y
      * @return ShoppingCartPositionBuilderInterface
      */
-    public function setLabelPosition(int $column, int $row): ShoppingCartPositionBuilderInterface;
+    public function setLabelPosition(int $page, int $column, int $row): ShoppingCartPositionBuilderInterface;
 
     /**
      * Specify that the stamp should be positioned in the franking zone of the PDF page.

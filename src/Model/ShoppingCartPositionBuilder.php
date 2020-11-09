@@ -8,23 +8,36 @@ declare(strict_types=1);
 
 namespace DeutschePost\Sdk\OneClickForApp\Model;
 
+use DeutschePost\Sdk\OneClickForApp\Api\Data\PageFormatInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\ShoppingCartPositionBuilderInterface;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\Address;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\AddressBinding;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\CompanyName;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\Name;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\NamedAddress;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\PersonName;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShoppingCartPDFPosition;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherLayout;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherPosition;
 
 final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterface
 {
     /**
-     * @var ShoppingCartPositionBuilderInterface|null
+     * @var PageFormatInterface
      */
-    private static $builder;
+    private $pageFormat;
 
     /**
-     * The total amount collected for all added items.
-     *
-     * @var int
+     * @var VoucherPositionCalculator
      */
-    private $orderTotal;
+    private $voucherPositionCalculator;
+
+    /**
+     * The amounts collected for all added items.
+     *
+     * @var int[]
+     */
+    private $itemPrices;
 
     /**
      * The collected data used to build the request
@@ -33,29 +46,27 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
      */
     private $data = [];
 
-    private function __construct()
+    private function __construct(PageFormatInterface $pageFormat, VoucherPositionCalculator  $voucherPositionCalculator)
     {
-        $this->orderTotal = 0;
+        $this->pageFormat = $pageFormat;
+        $this->voucherPositionCalculator = $voucherPositionCalculator;
+        $this->itemPrices = [];
     }
 
-    public static function getInstance(): ShoppingCartPositionBuilderInterface
+    public static function forPageFormat(PageFormatInterface $pageFormat): ShoppingCartPositionBuilderInterface
     {
-        if (static::$builder === null) {
-            static::$builder = new static();
-        }
-
-        return static::$builder;
+        return new static($pageFormat, new VoucherPositionCalculator());
     }
 
     public function getTotalAmount(): int
     {
-        return $this->orderTotal;
+        return (int) array_sum($this->itemPrices);
     }
 
     public function setItemDetails(int $productId, int $price): ShoppingCartPositionBuilderInterface
     {
         $this->data['itemDetails']['productId'] = $productId;
-        $this->orderTotal += $price;
+        $this->itemPrices[] = $price;
 
         return $this;
     }
@@ -80,7 +91,17 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
         string $title = null,
         string $streetAddition = null
     ): ShoppingCartPositionBuilderInterface {
-        // TODO: Implement setShipperAddress() method.
+        $this->data['shipper']['company'] = $company;
+        $this->data['shipper']['country'] = $country;
+        $this->data['shipper']['postalCode'] = $postalCode;
+        $this->data['shipper']['city'] = $city;
+        $this->data['shipper']['streetName'] = $streetName;
+        $this->data['shipper']['streetNumber'] = $streetNumber;
+        $this->data['shipper']['lastName'] = $lastName;
+        $this->data['shipper']['firstName'] = $firstName;
+        $this->data['shipper']['salutation'] = $salutation;
+        $this->data['shipper']['title'] = $title;
+        $this->data['shipper']['streetAddition'] = $streetAddition;
 
         return $this;
     }
@@ -98,14 +119,24 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
         string $company = null,
         string $streetAddition = null
     ): ShoppingCartPositionBuilderInterface {
-        // TODO: Implement setRecipientAddress() method.
+        $this->data['recipient']['lastName'] = $lastName;
+        $this->data['recipient']['firstName'] = $firstName;
+        $this->data['recipient']['country'] = $country;
+        $this->data['recipient']['postalCode'] = $postalCode;
+        $this->data['recipient']['city'] = $city;
+        $this->data['recipient']['streetName'] = $streetName;
+        $this->data['recipient']['streetNumber'] = $streetNumber;
+        $this->data['recipient']['salutation'] = $salutation;
+        $this->data['recipient']['title'] = $title;
+        $this->data['recipient']['company'] = $company;
+        $this->data['recipient']['streetAddition'] = $streetAddition;
 
         return $this;
     }
 
-    public function setLabelPosition(int $column, int $row): ShoppingCartPositionBuilderInterface
+    public function setLabelPosition(int $page, int $column, int $row): ShoppingCartPositionBuilderInterface
     {
-        // fixme(nr): page? method call required or use sane defaults?
+        $this->data['layout']['page'] = $page;
         $this->data['layout']['positionX'] = $column;
         $this->data['layout']['positionY'] = $row;
 
@@ -126,15 +157,84 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
         return $this;
     }
 
+    private function createAddress(array $data): NamedAddress
+    {
+        $name = new Name();
+        $person = null;
+        $company = null;
+
+        if (!empty($data['lastName'])) {
+            // person information available
+            $person = new PersonName(
+                $data['firstName'] ?? '',
+                $data['lastName']
+            );
+            $person->setSalutation($data['salutation'] ?? '');
+            $person->setTitle($data['title'] ?? '');
+        }
+
+        if (!empty($data['company'])) {
+            // company information available
+            $company = new CompanyName($data['company']);
+            if ($person) {
+                $company->setPersonName($person);
+            }
+        }
+
+        if ($company) {
+            // either company, optionally with person
+            $name->setCompanyName($company);
+        } else {
+            // or person only
+            $name->setPersonName($person);
+        }
+
+        $address = new Address(
+            $data['streetName'],
+            $data['streetNumber'],
+            $data['postalCode'],
+            $data['city'],
+            $data['country']
+        );
+        $address->setAdditional($data['streetAddition'] ?? '');
+        return new NamedAddress($name, $address);
+    }
+
     public function create()
     {
-        $position = new ShoppingCartPDFPosition(
+        if (isset($this->data['layout'], $this->data['layout']['page'])) {
+            $voucherPosition = new VoucherPosition(
+                $this->data['layout']['positionX'],
+                $this->data['layout']['positionY'],
+                $this->data['layout']['page']
+            );
+        } else {
+            $voucherPosition = $this->voucherPositionCalculator->getVoucherPosition(
+                $this->pageFormat->getColumns(),
+                $this->pageFormat->getRows(),
+                count($this->itemPrices)
+            );
+        }
+
+        $cartPosition = new ShoppingCartPDFPosition(
             $this->data['itemDetails']['productId'],
             $this->data['layout']['zone'] ?? VoucherLayout::__default,
-            null // todo(nr): create position
+            $voucherPosition
         );
 
-        $position->setImageID($this->data['itemDetails']['imageId'] ?? null);
-        return $position;
+        if ($this->pageFormat->isImagePossible() && isset($this->data['itemDetails']['imageId'])) {
+            $cartPosition->setImageID($this->data['itemDetails']['imageId']);
+        }
+
+        if ($this->pageFormat->isAddressPossible() && isset($this->data['shipper'], $this->data['recipient'])) {
+            // schema allows setting both or none
+            $sender = $this->createAddress($this->data['shipper']);
+            $receiver = $this->createAddress($this->data['recipient']);
+
+            $address = new AddressBinding($sender, $receiver);
+            $cartPosition->setAddress($address);
+        }
+
+        return $cartPosition;
     }
 }

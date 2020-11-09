@@ -20,9 +20,19 @@ class Name
      */
     private $companyName;
 
-    public function __construct(PersonName $personName, CompanyName $companyName)
+    /**
+     * @param PersonName $personName
+     */
+    public function setPersonName(PersonName $personName): void
     {
         $this->personName = $personName;
+    }
+
+    /**
+     * @param CompanyName $companyName
+     */
+    public function setCompanyName(CompanyName $companyName): void
+    {
         $this->companyName = $companyName;
     }
 }

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator;
 
 use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationErrorException;
+use DeutschePost\Sdk\OneClickForApp\Exception\DetailedErrorException;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
@@ -23,8 +24,7 @@ class ErrorHandlerDecorator extends AbstractDecorator
         try {
             return parent::retrieveContractProducts($requestType);
         } catch (\SoapFault $fault) {
-            // if identifyexception then convert to authentication error exception
-            if (property_exists($fault->detail, 'IdentifyException')) {
+            if (isset($fault->detail) && property_exists($fault->detail, 'IdentifyException')) {
                 throw new AuthenticationErrorException($fault->getMessage());
             }
 
@@ -37,9 +37,19 @@ class ErrorHandlerDecorator extends AbstractDecorator
         try {
             return parent::checkoutShoppingCartPDF($requestType);
         } catch (\SoapFault $fault) {
-            // if identifyexception then convert to authentication error exception
-            if ($fault->detail) {
+            if (isset($fault->detail) && property_exists($fault->detail, 'IdentifyException')) {
                 throw new AuthenticationErrorException($fault->getMessage());
+            }
+
+            if (isset($fault->detail) && property_exists($fault->detail, 'ShoppingCartValidationException')) {
+                $errors = $fault->detail->ShoppingCartValidationException->errors;
+                $errors = array_map(
+                    function ($error) {
+                        return $error->message;
+                    },
+                    is_array($errors) ? $errors : [$errors]
+                );
+                throw new DetailedErrorException(sprintf('%s %s', $fault->getMessage(), implode(' ', $errors)));
             }
 
             throw $fault;

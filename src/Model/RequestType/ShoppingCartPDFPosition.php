@@ -47,17 +47,17 @@ class ShoppingCartPDFPosition
         $this->position = $position;
     }
 
-    public function setAddress(?AddressBinding $address): void
+    public function setAddress(AddressBinding $address): void
     {
         $this->address = $address;
     }
 
-    public function setImageID(?int $imageID): void
+    public function setImageID(int $imageID): void
     {
         $this->imageID = $imageID;
     }
 
-    public function setAdditionalInfo(?string $additionalInfo): void
+    public function setAdditionalInfo(string $additionalInfo): void
     {
         $this->additionalInfo = $additionalInfo;
     }

@@ -47,6 +47,7 @@ class OrderService implements OrderServiceInterface
 
     public function createOrder(
         array $items,
+        int $orderTotal,
         int $pageFormat,
         bool $createManifest = false,
         bool $createShippingList = false
@@ -55,7 +56,7 @@ class OrderService implements OrderServiceInterface
             $this->tokenProvider->getToken(),
             $pageFormat,
             $items,
-            $total
+            $orderTotal
         );
         $request->setCreateManifest($createManifest);
         $request->setCreateShippingList($createShippingList ? ShippingList::a2 : ShippingList::a0);
@@ -65,7 +66,7 @@ class OrderService implements OrderServiceInterface
             return $this->responseMapper->map($response);
         } catch (AuthenticationErrorException $exception) {
             $this->tokenProvider->resetToken();
-            return $this->createOrder($items, $pageFormat, $createManifest, $createShippingList);
+            return $this->createOrder($items, $orderTotal, $pageFormat, $createManifest, $createShippingList);
         } catch (\Throwable $exception) {
             // Catch all leftovers, e.g. \SoapFault, \Exception, ...
             throw ServiceExceptionFactory::createServiceException($exception);

@@ -20,6 +20,7 @@ interface OrderServiceInterface
      * Create PDF labels for the given order positions.
      *
      * @param object[] $items
+     * @param int $orderTotal
      * @param int $pageFormat
      * @param bool $createManifest
      * @param bool $createShippingList
@@ -29,6 +30,7 @@ interface OrderServiceInterface
      */
     public function createOrder(
         array $items,
+        int $orderTotal,
         int $pageFormat,
         bool $createManifest = false,
         bool $createShippingList = false

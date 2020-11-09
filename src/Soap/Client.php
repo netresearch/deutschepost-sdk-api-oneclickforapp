@@ -13,6 +13,7 @@ use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrievePageFormatsResponse;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
 
 class Client extends AbstractClient
 {
@@ -42,10 +43,8 @@ class Client extends AbstractClient
         return $this->soapClient->__soapCall(__FUNCTION__, []);
     }
 
-    public function checkoutShoppingCartPDF($requestType)
+    public function checkoutShoppingCartPDF($requestType): ShoppingCartPDFResponse
     {
         return $this->soapClient->__soapCall(__FUNCTION__, [$requestType]);
     }
-
-
 }

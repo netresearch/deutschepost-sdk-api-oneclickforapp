@@ -15,8 +15,10 @@ use DeutschePost\Sdk\OneClickForApp\Api\ServiceFactoryInterface;
 use DeutschePost\Sdk\OneClickForApp\Auth\TokenProvider;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponseMapper;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrievePageFormatsResponseMapper;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponseMapper;
 use DeutschePost\Sdk\OneClickForApp\Service\AccountInformationService;
 use DeutschePost\Sdk\OneClickForApp\Service\AuthenticationService;
+use DeutschePost\Sdk\OneClickForApp\Service\OrderService;
 use DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator\AuthenticationDecorator;
 use DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator\ErrorHandlerDecorator;
 use DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator\UserAuthDecorator;
@@ -77,6 +79,6 @@ class SoapServiceFactory implements ServiceFactoryInterface
         $pluginClient = new AuthenticationDecorator($pluginClient, $this->soapClient, $credentials);
         $pluginClient = new LoggerDecorator($pluginClient, $this->soapClient, $logger);
 
-        return new OrderService($pluginClient, $tokenProvider);
+        return new OrderService($pluginClient, $tokenProvider, new ShoppingCartPDFResponseMapper());
     }
 }
