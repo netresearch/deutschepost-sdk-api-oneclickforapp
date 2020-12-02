@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace DeutschePost\Sdk\OneClickForApp\Soap;
 
-use DeutschePost\Sdk\OneClickForApp\Api\Data\CredentialsInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\AccountInformationServiceInterface;
+use DeutschePost\Sdk\OneClickForApp\Api\Data\CredentialsInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\OrderServiceInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\ServiceFactoryInterface;
 use DeutschePost\Sdk\OneClickForApp\Auth\TokenProvider;
@@ -21,9 +21,7 @@ use DeutschePost\Sdk\OneClickForApp\Service\AuthenticationService;
 use DeutschePost\Sdk\OneClickForApp\Service\OrderService;
 use DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator\AuthenticationDecorator;
 use DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator\ErrorHandlerDecorator;
-use DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator\UserAuthDecorator;
 use DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator\LoggerDecorator;
-use DeutschePost\Sdk\ProdWS\Model\GetProductVersionsListResponseMapper;
 use Psr\Log\LoggerInterface;
 
 class SoapServiceFactory implements ServiceFactoryInterface
@@ -38,8 +36,10 @@ class SoapServiceFactory implements ServiceFactoryInterface
         $this->soapClient = $soapClient;
     }
 
-    private function createAuthenticationService(CredentialsInterface $credentials, LoggerInterface $logger)
-    {
+    private function createAuthenticationService(
+        CredentialsInterface $credentials,
+        LoggerInterface $logger
+    ): AuthenticationService {
         $pluginClient = new Client($this->soapClient);
         $pluginClient = new AuthenticationDecorator($pluginClient, $this->soapClient, $credentials);
         $pluginClient = new LoggerDecorator($pluginClient, $this->soapClient, $logger);

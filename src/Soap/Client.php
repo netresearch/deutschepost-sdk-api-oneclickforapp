@@ -10,9 +10,10 @@ namespace DeutschePost\Sdk\OneClickForApp\Soap;
 
 use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
-use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrievePageFormatsResponse;
+use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
 
 class Client extends AbstractClient
@@ -43,7 +44,7 @@ class Client extends AbstractClient
         return $this->soapClient->__soapCall(__FUNCTION__, []);
     }
 
-    public function checkoutShoppingCartPDF($requestType): ShoppingCartPDFResponse
+    public function checkoutShoppingCartPDF(ShoppingCartPDFRequest $requestType): ShoppingCartPDFResponse
     {
         return $this->soapClient->__soapCall(__FUNCTION__, [$requestType]);
     }

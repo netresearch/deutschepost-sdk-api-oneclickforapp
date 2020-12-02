@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace DeutschePost\Sdk\OneClickForApp\Api;
 
 use DeutschePost\Sdk\OneClickForApp\Api\Data\CredentialsInterface;
-use DeutschePost\Sdk\OneClickForApp\Exception\ServiceException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -24,7 +23,7 @@ interface ServiceFactoryInterface
      * @param LoggerInterface $logger
      *
      * @return AccountInformationServiceInterface
-     * @throws ServiceException
+     * @throws \RuntimeException
      */
     public function createAccountInformationService(
         CredentialsInterface $credentials,
@@ -38,7 +37,7 @@ interface ServiceFactoryInterface
      * @param LoggerInterface $logger
      *
      * @return OrderServiceInterface
-     * @throws ServiceException
+     * @throws \RuntimeException
      */
     public function createOrderService(
         CredentialsInterface $credentials,

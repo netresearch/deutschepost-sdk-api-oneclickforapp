@@ -20,7 +20,7 @@ use DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShoppingCartPDFPosition;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherLayout;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherPosition;
 
-final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterface
+class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterface
 {
     /**
      * @var PageFormatInterface

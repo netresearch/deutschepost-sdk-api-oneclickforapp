@@ -21,7 +21,7 @@ class AuthenticateUserResponse
     private $walletBalance;
 
     /**
-     * @var boolean $showTermsAndConditions
+     * @var bool $showTermsAndConditions
      */
     private $showTermsAndConditions;
 

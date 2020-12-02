@@ -8,11 +8,10 @@ declare(strict_types=1);
 
 namespace DeutschePost\Sdk\OneClickForApp\Service;
 
-use DeutschePost\Sdk\OneClickForApp\Api\Data\CredentialsInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\AccountInformationServiceInterface;
+use DeutschePost\Sdk\OneClickForApp\Api\Data\CredentialsInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\OrderServiceInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\ServiceFactoryInterface;
-use DeutschePost\Sdk\OneClickForApp\Exception\ServiceException;
 use DeutschePost\Sdk\OneClickForApp\Serializer\ClassMap;
 use DeutschePost\Sdk\OneClickForApp\Soap\SoapServiceFactory;
 use Psr\Log\LoggerInterface;
@@ -27,14 +26,14 @@ class ServiceFactory implements ServiceFactoryInterface
     ): AccountInformationServiceInterface {
         $options = [
             'trace' => 1,
-            'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
+            'features' => \SOAP_SINGLE_ELEMENT_ARRAYS,
             'classmap' => ClassMap::get(),
         ];
 
         try {
             $soapClient = new \SoapClient(self::SOAP_WSDL, $options);
         } catch (\SoapFault $soapFault) {
-            throw new ServiceException($soapFault->getMessage(), $soapFault->getCode(), $soapFault);
+            throw new \RuntimeException($soapFault->getMessage(), $soapFault->getCode(), $soapFault);
         }
 
         $soapServiceFactory = new SoapServiceFactory($soapClient);
@@ -47,14 +46,14 @@ class ServiceFactory implements ServiceFactoryInterface
     ): OrderServiceInterface {
         $options = [
             'trace' => 1,
-            'features' => SOAP_SINGLE_ELEMENT_ARRAYS,
+            'features' => \SOAP_SINGLE_ELEMENT_ARRAYS,
             'classmap' => ClassMap::get(),
         ];
 
         try {
             $soapClient = new \SoapClient(self::SOAP_WSDL, $options);
         } catch (\SoapFault $soapFault) {
-            throw new ServiceException($soapFault->getMessage(), $soapFault->getCode(), $soapFault);
+            throw new \RuntimeException($soapFault->getMessage(), $soapFault->getCode(), $soapFault);
         }
 
         $soapServiceFactory = new SoapServiceFactory($soapClient);
