@@ -14,6 +14,7 @@ use DeutschePost\Sdk\OneClickForApp\Auth\TokenProvider;
 use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationErrorException;
 use DeutschePost\Sdk\OneClickForApp\Exception\ServiceExceptionFactory;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShippingList;
+use DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShoppingCartPDFPosition;
 use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponseMapper;
 use DeutschePost\Sdk\OneClickForApp\Soap\AbstractClient;
@@ -52,6 +53,7 @@ class OrderService implements OrderServiceInterface
         bool $createManifest = false,
         bool $createShippingList = false
     ): OrderInterface {
+        /** @var ShoppingCartPDFPosition[] $items */
         $request = new ShoppingCartPDFRequest(
             $this->tokenProvider->getToken(),
             $pageFormat,

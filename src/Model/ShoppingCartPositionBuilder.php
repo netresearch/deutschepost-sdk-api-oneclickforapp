@@ -20,7 +20,7 @@ use DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShoppingCartPDFPosition;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherLayout;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherPosition;
 
-class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterface
+final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterface
 {
     /**
      * @var PageFormatInterface
@@ -55,7 +55,7 @@ class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterfac
 
     public static function forPageFormat(PageFormatInterface $pageFormat): ShoppingCartPositionBuilderInterface
     {
-        return new static($pageFormat, new VoucherPositionCalculator());
+        return new self($pageFormat, new VoucherPositionCalculator());
     }
 
     public function getPageFormatId(): int
@@ -162,6 +162,12 @@ class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterfac
         return $this;
     }
 
+    /**
+     * Create shipper or recipient address based on given address properties.
+     *
+     * @param string[] $data
+     * @return NamedAddress
+     */
     private function createAddress(array $data): NamedAddress
     {
         $name = new Name();

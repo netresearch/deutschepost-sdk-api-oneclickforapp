@@ -1,0 +1,13 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <soap:Fault>
+            <faultcode>soap:Server</faultcode>
+            <faultstring>Usertoken is invalid: expired token</faultstring>
+            <detail>
+                <IdentifyException xmlns="http://oneclickforapp.dpag.de/V3">
+                    <message>Usertoken is invalid: expired token</message>
+                </IdentifyException>
+            </detail>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>

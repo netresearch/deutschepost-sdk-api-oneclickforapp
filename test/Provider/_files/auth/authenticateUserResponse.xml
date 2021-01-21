@@ -1,0 +1,9 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <AuthenticateUserResponse xmlns="http://oneclickforapp.dpag.de/V3">
+            <userToken>%userToken%</userToken>
+            <walletBalance>12345</walletBalance>
+            <showTermsAndConditions>false</showTermsAndConditions>
+        </AuthenticateUserResponse>
+    </soap:Body>
+</soap:Envelope>

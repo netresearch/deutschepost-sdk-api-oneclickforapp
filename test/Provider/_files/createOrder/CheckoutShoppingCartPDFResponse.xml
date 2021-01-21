@@ -1,0 +1,16 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <CheckoutShoppingCartPDFResponse xmlns="http://oneclickforapp.dpag.de/V3">
+            <link>https://internetmarke.deutschepost.de/PcfExtensionWeb/document?keyphase=0123456</link>
+            <walletBallance>123456</walletBallance>
+            <shoppingCart>
+                <shopOrderId>1047408393</shopOrderId>
+                <voucherList>
+                    <voucher>
+                        <voucherId>A0029B780B000000045F</voucherId>
+                    </voucher>
+                </voucherList>
+            </shoppingCart>
+        </CheckoutShoppingCartPDFResponse>
+    </soap:Body>
+</soap:Envelope>

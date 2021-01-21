@@ -54,12 +54,17 @@ class ShoppingCartPDFResponseMapper
             );
         }
 
+        $manifest = '';
+        if ($apiResponse->getManifestLink()) {
+            $manifest = file_get_contents($apiResponse->getManifestLink());
+        }
+
         return new Order(
             $apiResponse->getShoppingCart()->getShopOrderId() ?? '',
             $apiResponse->getWalletBalance(),
             $labelContent,
             $items,
-            $apiResponse->getManifestLink() ? file_get_contents($apiResponse->getManifestLink()) : null
+            $manifest ?: null
         );
     }
 }

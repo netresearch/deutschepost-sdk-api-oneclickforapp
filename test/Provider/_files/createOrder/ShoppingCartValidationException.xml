@@ -1,0 +1,17 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <soap:Fault>
+            <faultcode>soap:Server</faultcode>
+            <faultstring>Checkout shopping cart failed.</faultstring>
+            <detail>
+                <ShoppingCartValidationException xmlns="http://oneclickforapp.dpag.de/V3">
+                    <message>Checkout shopping cart failed.</message>
+                    <errors>
+                        <id>invalidPageFormat</id>
+                        <message>No page format with id: 9999 found!</message>
+                    </errors>
+                </ShoppingCartValidationException>
+            </detail>
+        </soap:Fault>
+    </soap:Body>
+</soap:Envelope>
