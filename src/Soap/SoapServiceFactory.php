@@ -41,6 +41,7 @@ class SoapServiceFactory implements ServiceFactoryInterface
         LoggerInterface $logger
     ): AuthenticationService {
         $pluginClient = new Client($this->soapClient);
+        $pluginClient = new ErrorHandlerDecorator($pluginClient);
         $pluginClient = new AuthenticationDecorator($pluginClient, $this->soapClient, $credentials);
         $pluginClient = new LoggerDecorator($pluginClient, $this->soapClient, $logger);
 

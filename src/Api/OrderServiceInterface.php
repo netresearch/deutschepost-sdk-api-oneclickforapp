@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace DeutschePost\Sdk\OneClickForApp\Api;
 
 use DeutschePost\Sdk\OneClickForApp\Api\Data\OrderInterface;
+use DeutschePost\Sdk\OneClickForApp\Exception\DetailedServiceException;
 use DeutschePost\Sdk\OneClickForApp\Exception\ServiceException;
 
 /**
@@ -26,6 +27,7 @@ interface OrderServiceInterface
      * @param bool $createShippingList
      * @return OrderInterface
      *
+     * @throws DetailedServiceException
      * @throws ServiceException
      */
     public function createOrder(

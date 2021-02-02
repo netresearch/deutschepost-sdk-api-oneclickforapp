@@ -12,6 +12,7 @@ use DeutschePost\Sdk\OneClickForApp\Api\Data\OrderInterface;
 use DeutschePost\Sdk\OneClickForApp\Api\OrderServiceInterface;
 use DeutschePost\Sdk\OneClickForApp\Auth\TokenProvider;
 use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationErrorException;
+use DeutschePost\Sdk\OneClickForApp\Exception\DetailedErrorException;
 use DeutschePost\Sdk\OneClickForApp\Exception\ServiceExceptionFactory;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShippingList;
 use DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShoppingCartPDFPosition;
@@ -69,6 +70,8 @@ class OrderService implements OrderServiceInterface
         } catch (AuthenticationErrorException $exception) {
             $this->tokenProvider->resetToken();
             return $this->createOrder($items, $orderTotal, $pageFormat, $createManifest, $createShippingList);
+        } catch (DetailedErrorException $exception) {
+            throw ServiceExceptionFactory::createDetailedServiceException($exception);
         } catch (\Throwable $exception) {
             // Catch all leftovers, e.g. \SoapFault, \Exception, ...
             throw ServiceExceptionFactory::createServiceException($exception);

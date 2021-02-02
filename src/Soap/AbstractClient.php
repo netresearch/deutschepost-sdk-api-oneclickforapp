@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace DeutschePost\Sdk\OneClickForApp\Soap;
 
 use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationErrorException;
+use DeutschePost\Sdk\OneClickForApp\Exception\DetailedErrorException;
 use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
@@ -25,6 +26,7 @@ abstract class AbstractClient
      * @param AuthenticateUserRequest $requestType
      * @return AuthenticateUserResponse
      *
+     * @throws AuthenticationErrorException
      * @throws \SoapFault
      * @throws \Exception
      */
@@ -59,6 +61,7 @@ abstract class AbstractClient
      * @return ShoppingCartPDFResponse
      *
      * @throws AuthenticationErrorException
+     * @throws DetailedErrorException
      * @throws \SoapFault
      * @throws \Exception
      */

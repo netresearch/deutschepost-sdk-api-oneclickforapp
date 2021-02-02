@@ -10,6 +10,8 @@ namespace DeutschePost\Sdk\OneClickForApp\Soap\ClientDecorator;
 
 use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationErrorException;
 use DeutschePost\Sdk\OneClickForApp\Exception\DetailedErrorException;
+use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserRequest;
+use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsResponse;
 use DeutschePost\Sdk\OneClickForApp\Model\RetrieveContractProductsRequest;
 use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFRequest;
@@ -18,6 +20,19 @@ use DeutschePost\Sdk\OneClickForApp\Soap\AbstractDecorator;
 
 class ErrorHandlerDecorator extends AbstractDecorator
 {
+    public function authenticateUser(AuthenticateUserRequest $requestType): AuthenticateUserResponse
+    {
+        try {
+            return parent::authenticateUser($requestType);
+        } catch (\SoapFault $fault) {
+            if (isset($fault->detail) && property_exists($fault->detail, 'AuthenticateUserException')) {
+                throw new AuthenticationErrorException($fault->getMessage());
+            }
+
+            throw $fault;
+        }
+    }
+
     public function retrieveContractProducts(
         RetrieveContractProductsRequest $requestType
     ): RetrieveContractProductsResponse {

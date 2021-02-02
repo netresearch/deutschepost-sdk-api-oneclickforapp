@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace DeutschePost\Sdk\OneClickForApp\Service;
 
+use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationErrorException;
+use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationException;
 use DeutschePost\Sdk\OneClickForApp\Exception\ServiceException;
 use DeutschePost\Sdk\OneClickForApp\Exception\ServiceExceptionFactory;
 use DeutschePost\Sdk\OneClickForApp\Model\AuthenticateUserRequest;
@@ -29,6 +31,7 @@ class AuthenticationService
      * @param string $username
      * @param string $password
      * @return string
+     * @throws AuthenticationException
      * @throws ServiceException
      */
     public function authenticate(string $username, string $password): string
@@ -38,6 +41,8 @@ class AuthenticationService
         try {
             $response = $this->client->authenticateUser($request);
             return $response->getUserToken();
+        } catch (AuthenticationErrorException $exception) {
+            throw ServiceExceptionFactory::createAuthenticationException($exception);
         } catch (\Throwable $exception) {
             // Catch all leftovers, e.g. \SoapFault, \Exception, ...
             throw ServiceExceptionFactory::createServiceException($exception);
