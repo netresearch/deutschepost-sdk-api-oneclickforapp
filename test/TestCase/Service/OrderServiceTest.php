@@ -161,7 +161,6 @@ class OrderServiceTest extends SoapServiceTestCase
     public function createOrderAppAuthenticationError(PageFormat $pageFormat): void
     {
         $this->expectException(ServiceException::class);
-        $this->expectExceptionMessageRegExp('/Unknown channel/');
 
         $logger = new TestLogger();
         $credentials = new Credentials(
@@ -197,6 +196,8 @@ class OrderServiceTest extends SoapServiceTestCase
                 $logger
             );
 
+            $this->assertNotFalse(strpos($exception->getMessage(), 'Unknown channel'));
+
             throw $exception;
         }
     }
@@ -218,7 +219,6 @@ class OrderServiceTest extends SoapServiceTestCase
     public function createOrderUserAuthenticationError(PageFormat $pageFormat): void
     {
         $this->expectException(ServiceException::class);
-        $this->expectExceptionMessageRegExp('/invalid password/');
 
         $logger = new TestLogger();
         $tokenStorage = new TokenStorage();
@@ -254,6 +254,8 @@ class OrderServiceTest extends SoapServiceTestCase
                 $soapClient->__getLastResponse(),
                 $logger
             );
+
+            $this->assertNotFalse(strpos($exception->getMessage(), 'invalid password'));
 
             throw $exception;
         }
@@ -346,7 +348,6 @@ class OrderServiceTest extends SoapServiceTestCase
     public function createOrderPageFormatError(PageFormat $pageFormat): void
     {
         $this->expectException(ServiceException::class);
-        $this->expectExceptionMessageRegExp('/No page format with id/');
 
         $logger = new TestLogger();
         $tokenStorage = new TokenStorage();
@@ -386,6 +387,8 @@ class OrderServiceTest extends SoapServiceTestCase
                 $soapClient->__getLastResponse(),
                 $logger
             );
+
+            $this->assertNotFalse(strpos($exception->getMessage(), 'No page format with id'));
 
             throw $exception;
         }

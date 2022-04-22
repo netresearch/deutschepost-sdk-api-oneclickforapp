@@ -8,11 +8,15 @@ The DP OneClickForApp API SDK package offers an interface to the following web s
 
 ### System Requirements
 
-- PHP 7.1+ with SOAP extension
+- PHP 7.2+ with SOAP extension
 
 ### Package Requirements
 
 - `psr/log`: PSR-3 logger interfaces
+
+### Suggested Libraries
+
+- `zf1s/zend-pdf`: PDF library to extract individual voucher PDF documents from multi-label response
 
 ### Development Package Requirements
 

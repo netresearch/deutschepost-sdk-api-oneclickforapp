@@ -69,7 +69,6 @@ class AccountInformationServiceTest extends SoapServiceTestCase
     public function getPageFormatsAppAuthenticationError(): void
     {
         $this->expectException(ServiceException::class);
-        $this->expectExceptionMessageRegExp('/Unknown channel/');
 
         $logger = new TestLogger();
         $credentials = new Credentials('', '', 'app', 'invalid', 1, new TokenStorage());
@@ -88,6 +87,8 @@ class AccountInformationServiceTest extends SoapServiceTestCase
                 $soapClient->__getLastResponse(),
                 $logger
             );
+
+            $this->assertNotFalse(strpos($exception->getMessage(), 'Unknown channel'));
 
             throw $exception;
         }
@@ -152,7 +153,6 @@ class AccountInformationServiceTest extends SoapServiceTestCase
     public function getContractProductsAppAuthenticationError(): void
     {
         $this->expectException(ServiceException::class);
-        $this->expectExceptionMessageRegExp('/Unknown channel/');
 
         $logger = new TestLogger();
         $credentials = new Credentials(
@@ -179,6 +179,8 @@ class AccountInformationServiceTest extends SoapServiceTestCase
                 $logger
             );
 
+            $this->assertNotFalse(strpos($exception->getMessage(), 'Unknown channel'));
+
             throw $exception;
         }
     }
@@ -196,7 +198,6 @@ class AccountInformationServiceTest extends SoapServiceTestCase
     public function getContractProductsUserAuthenticationError(): void
     {
         $this->expectException(ServiceException::class);
-        $this->expectExceptionMessageRegExp('/invalid password/');
 
         $logger = new TestLogger();
         $tokenStorage = new TokenStorage();
@@ -223,6 +224,8 @@ class AccountInformationServiceTest extends SoapServiceTestCase
                 $soapClient->__getLastResponse(),
                 $logger
             );
+
+            $this->assertNotFalse(strpos($exception->getMessage(), 'invalid password'));
 
             throw $exception;
         }

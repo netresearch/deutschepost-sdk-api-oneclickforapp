@@ -9,21 +9,49 @@ declare(strict_types=1);
 namespace DeutschePost\Sdk\OneClickForApp\Model;
 
 use DeutschePost\Sdk\OneClickForApp\Api\Data\OrderInterface;
+use DeutschePost\Sdk\OneClickForApp\Model\ResponseType\VoucherList;
 use DeutschePost\Sdk\OneClickForApp\Service\OrderService\Order;
 use DeutschePost\Sdk\OneClickForApp\Service\OrderService\Voucher;
 
 class ShoppingCartPDFResponseMapper
 {
-    private function extractPage(\Zend_Pdf $pdf, int $pageNumber): ?string
+    /**
+     * Retrieve one label per voucher if possible.
+     *
+     * This requires the Zend_Pdf library to be installed and works only if
+     * the number of vouchers equals the number of pages in the PDF label
+     * created with the web service call.
+     *
+     * @param string $labelContent
+     * @param VoucherList $voucherList
+     * @return string[]|null[]
+     */
+    private function getVoucherLabels(string $labelContent, VoucherList $voucherList): array
     {
-        $frankingPdf = new \Zend_Pdf();
-        $frankingPdf->pages[] = clone $pdf->pages[$pageNumber];
-
-        try {
-            return $frankingPdf->render();
-        } catch (\Zend_Pdf_Exception $exception) {
-            return null;
+        $voucherCount = count($voucherList->getVouchers());
+        if ($voucherCount === 1) {
+            return [$labelContent];
         }
+
+        $orderPdf = class_exists('Zend_Pdf') ? \Zend_Pdf::parse($labelContent) : null;
+        if (!$orderPdf || $voucherCount !== count($orderPdf->pages)) {
+            // PDF library not available or page count mismatch. Unable to extract voucher label.
+            return array_fill(0, $voucherCount, null);
+        }
+
+        return array_map(
+            function (int $pageNumber) use ($orderPdf) {
+                $voucherPdf = new \Zend_Pdf();
+                $voucherPdf->pages[] = clone $orderPdf->pages[$pageNumber];
+
+                try {
+                    return $voucherPdf->render();
+                } catch (\Zend_Pdf_Exception $exception) {
+                    return null;
+                }
+            },
+            array_keys($voucherList->getVouchers())
+        );
     }
 
     /**
@@ -40,17 +68,14 @@ class ShoppingCartPDFResponseMapper
     public function map(ShoppingCartPDFResponse $apiResponse): OrderInterface
     {
         $labelContent = file_get_contents($apiResponse->getLink());
-        $labelPdf = \Zend_Pdf::parse($labelContent);
-
-        $voucherCount = count($apiResponse->getShoppingCart()->getVoucherList()->getVouchers());
-        $pageCount = count($labelPdf->pages);
+        $voucherLabels = $this->getVoucherLabels($labelContent, $apiResponse->getShoppingCart()->getVoucherList());
 
         $items = [];
         foreach ($apiResponse->getShoppingCart()->getVoucherList()->getVouchers() as $index => $voucher) {
             $items[] = new Voucher(
                 $voucher->getVoucherId(),
                 $voucher->getTrackId(),
-                ($pageCount === $voucherCount) ? $this->extractPage($labelPdf, $index) : null
+                $voucherLabels[$index]
             );
         }
 

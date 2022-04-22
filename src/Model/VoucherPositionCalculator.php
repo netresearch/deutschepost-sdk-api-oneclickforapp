@@ -12,7 +12,6 @@ use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherPosition;
 
 class VoucherPositionCalculator
 {
-
     public function getVoucherPosition(int $pageColumns, int $pageRows, int $itemNumber): VoucherPosition
     {
         $itemsPerPage = $pageColumns * $pageRows;
