@@ -41,10 +41,5 @@
             "DeutschePost\\Sdk\\OneClickForApp\\Test\\": "test/"
         },
         "files": ["test/TestDouble/FileGetContents.php"]
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-develop": "1.1.0.x-dev"
-        }
     }
 }
