@@ -8,7 +8,7 @@ The DP OneClickForApp API SDK package offers an interface to the following web s
 
 ### System Requirements
 
-- PHP 7.2+ with SOAP extension
+- PHP 8.1+ with SOAP extension
 
 ### Package Requirements
 
