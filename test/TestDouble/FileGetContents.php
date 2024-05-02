@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace DeutschePost\Sdk\OneClickForApp\Model;
 
-function file_get_contents($filename, $use_include_path = false, $context = null, $offset = 0, $length = null)
+function file_get_contents($filename, $use_include_path = false, $context = null, $offset = 0, $length = null): string
 {
     $labelPdf = <<<'B64'
 JVBERi0xLjUKJbXtrvsKMyAwIG9iago8PCAvTGVuZ3RoIDQgMCBSCiAgIC9GaWx0ZXIgL0ZsYXRl

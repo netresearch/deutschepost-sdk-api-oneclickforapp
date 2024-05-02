@@ -22,8 +22,6 @@ class ShoppingCartPDFResponseMapper
      * the number of vouchers equals the number of pages in the PDF label
      * created with the web service call.
      *
-     * @param string $labelContent
-     * @param VoucherList $voucherList
      * @return string[]|null[]
      */
     private function getVoucherLabels(string $labelContent, VoucherList $voucherList): array
@@ -46,7 +44,7 @@ class ShoppingCartPDFResponseMapper
 
                 try {
                     return $voucherPdf->render();
-                } catch (\Zend_Pdf_Exception $exception) {
+                } catch (\Zend_Pdf_Exception) {
                     return null;
                 }
             },
@@ -61,9 +59,6 @@ class ShoppingCartPDFResponseMapper
      * This does only work for page formats which contain one voucher per page. If multiple items
      * are printed on one page (e.g. 2 columns, 3 rows; 10 items ordered → 2 pages created),
      * then the original PDF document contained with the order response must be used.
-     *
-     * @param ShoppingCartPDFResponse $apiResponse
-     * @return OrderInterface
      */
     public function map(ShoppingCartPDFResponse $apiResponse): OrderInterface
     {

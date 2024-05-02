@@ -10,19 +10,7 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class NamedAddress
 {
-    /**
-     * @var Name $name
-     */
-    private $name;
-
-    /**
-     * @var Address $address
-     */
-    private $address;
-
-    public function __construct(Name $name, Address $address)
+    public function __construct(private Name $name, private Address $address)
     {
-        $this->name = $name;
-        $this->address = $address;
     }
 }

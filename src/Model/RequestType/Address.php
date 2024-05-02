@@ -10,43 +10,10 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class Address
 {
-    /**
-     * @var string $street
-     */
-    private $street;
+    private ?string $additional = null;
 
-    /**
-     * @var string $houseNo
-     */
-    private $houseNo;
-
-    /**
-     * @var string $zip
-     */
-    private $zip;
-
-    /**
-     * @var string $city
-     */
-    private $city;
-
-    /**
-     * @var string $country
-     */
-    private $country;
-
-    /**
-     * @var string|null $additional
-     */
-    private $additional;
-
-    public function __construct(string $street, string $houseNo, string $zip, string $city, string $country)
+    public function __construct(private string $street, private string $houseNo, private string $zip, private string $city, private string $country)
     {
-        $this->street = $street;
-        $this->houseNo = $houseNo;
-        $this->zip = $zip;
-        $this->city = $city;
-        $this->country = $country;
     }
 
     public function setAdditional(string $additional): void

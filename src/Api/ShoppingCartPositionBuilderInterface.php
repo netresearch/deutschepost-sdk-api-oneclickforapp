@@ -15,23 +15,15 @@ use DeutschePost\Sdk\OneClickForApp\Api\Data\PageFormatInterface;
  */
 interface ShoppingCartPositionBuilderInterface
 {
-    /**
-     * @param PageFormatInterface $pageFormat
-     * @return ShoppingCartPositionBuilderInterface
-     */
     public static function forPageFormat(PageFormatInterface $pageFormat): ShoppingCartPositionBuilderInterface;
 
     /**
      * Obtain the ID of the page format that the builder was initialized with.
-     *
-     * @return int
      */
     public function getPageFormatId(): int;
 
     /**
      * Obtain the collected total of all items.
-     *
-     * @return int
      */
     public function getTotalAmount(): int;
 
@@ -40,7 +32,6 @@ interface ShoppingCartPositionBuilderInterface
      *
      * @param int $productId ID of the PPL sales product (ProdWS ID)
      * @param int $price Sales product price or contract product price (if available)
-     * @return ShoppingCartPositionBuilderInterface
      */
     public function setItemDetails(int $productId, int $price): ShoppingCartPositionBuilderInterface;
 
@@ -48,9 +39,6 @@ interface ShoppingCartPositionBuilderInterface
      * Select an image / a motif from the image gallery (optional).
      *
      * This setting does only apply to label formats that allow images and will be ignored otherwise.
-     *
-     * @param int $imageId
-     * @return ShoppingCartPositionBuilderInterface
      */
     public function setImageId(int $imageId): ShoppingCartPositionBuilderInterface;
 
@@ -59,18 +47,12 @@ interface ShoppingCartPositionBuilderInterface
      *
      * This setting does only apply to label formats that allow addresses and will be ignored otherwise.
      *
-     * @param string $company
      * @param string $country 3-digit ISO code
-     * @param string $postalCode
-     * @param string $city
-     * @param string $streetName
-     * @param string $streetNumber
      * @param string|null $lastName
      * @param string|null $firstName
      * @param string|null $salutation
      * @param string|null $title
      * @param string|null $streetAddition
-     * @return ShoppingCartPositionBuilderInterface
      */
     public function setShipperAddress(
         string $company,
@@ -91,18 +73,10 @@ interface ShoppingCartPositionBuilderInterface
      *
      * This setting does only apply to label formats that allow addresses and will be ignored otherwise.
      *
-     * @param string $lastName
-     * @param string $firstName
-     * @param string $country
-     * @param string $postalCode
-     * @param string $city
-     * @param string $streetName
-     * @param string $streetNumber
      * @param string|null $salutation
      * @param string|null $title
      * @param string|null $company
      * @param string|null $streetAddition
-     * @return ShoppingCartPositionBuilderInterface
      */
     public function setRecipientAddress(
         string $lastName,
@@ -126,21 +100,16 @@ interface ShoppingCartPositionBuilderInterface
      * @param int $page page
      * @param int $column position x
      * @param int $row position y
-     * @return ShoppingCartPositionBuilderInterface
      */
     public function setLabelPosition(int $page, int $column, int $row): ShoppingCartPositionBuilderInterface;
 
     /**
      * Specify that the stamp should be positioned in the franking zone of the PDF page.
-     *
-     * @return ShoppingCartPositionBuilderInterface
      */
     public function setVoucherLayoutFrankingZone(): ShoppingCartPositionBuilderInterface;
 
     /**
      * Specify that the stamp should be positioned in the address zone of the PDF page.
-     *
-     * @return ShoppingCartPositionBuilderInterface
      */
     public function setVoucherLayoutAddressZone(): ShoppingCartPositionBuilderInterface;
 

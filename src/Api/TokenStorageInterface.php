@@ -16,7 +16,6 @@ use DeutschePost\Sdk\OneClickForApp\Exception\AuthenticationStorageException;
 interface TokenStorageInterface
 {
     /**
-     * @return string
      * @throws AuthenticationStorageException
      */
     public function readToken(): string;

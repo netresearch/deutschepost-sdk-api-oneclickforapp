@@ -19,36 +19,8 @@ use DeutschePost\Sdk\OneClickForApp\Soap\AbstractClient;
 
 class AccountInformationService implements AccountInformationServiceInterface
 {
-    /**
-     * @var AbstractClient
-     */
-    private $client;
-
-    /**
-     * @var TokenProvider
-     */
-    private $tokenProvider;
-
-    /**
-     * @var RetrievePageFormatsResponseMapper
-     */
-    private $pageFormatsMapper;
-
-    /**
-     * @var RetrieveContractProductsResponseMapper
-     */
-    private $productsMapper;
-
-    public function __construct(
-        AbstractClient $client,
-        TokenProvider $tokenProvider,
-        RetrievePageFormatsResponseMapper $pageFormatsMapper,
-        RetrieveContractProductsResponseMapper $productsMapper
-    ) {
-        $this->client = $client;
-        $this->tokenProvider = $tokenProvider;
-        $this->pageFormatsMapper = $pageFormatsMapper;
-        $this->productsMapper = $productsMapper;
+    public function __construct(private AbstractClient $client, private TokenProvider $tokenProvider, private RetrievePageFormatsResponseMapper $pageFormatsMapper, private RetrieveContractProductsResponseMapper $productsMapper)
+    {
     }
 
     public function getPageFormats(): array
@@ -69,7 +41,7 @@ class AccountInformationService implements AccountInformationServiceInterface
         try {
             $response = $this->client->retrieveContractProducts($request);
             return $this->productsMapper->map($response->getProducts());
-        } catch (AuthenticationErrorException $exception) {
+        } catch (AuthenticationErrorException) {
             $this->tokenProvider->resetToken();
             return $this->getContractProducts();
         } catch (\Throwable $exception) {

@@ -17,20 +17,11 @@ use DeutschePost\Sdk\OneClickForApp\Soap\AbstractClient;
 
 class AuthenticationService
 {
-    /**
-     * @var AbstractClient
-     */
-    private $client;
-
-    public function __construct(AbstractClient $client)
+    public function __construct(private AbstractClient $client)
     {
-        $this->client = $client;
     }
 
     /**
-     * @param string $username
-     * @param string $password
-     * @return string
      * @throws AuthenticationException
      * @throws ServiceException
      */

@@ -19,10 +19,7 @@ interface ServiceFactoryInterface
     /**
      * Create the service instance to retrieve user account related information.
      *
-     * @param CredentialsInterface $credentials
-     * @param LoggerInterface $logger
      *
-     * @return AccountInformationServiceInterface
      * @throws \RuntimeException
      */
     public function createAccountInformationService(
@@ -33,10 +30,7 @@ interface ServiceFactoryInterface
     /**
      * Create the service instance to purchase INTERNETMARKE stamps.
      *
-     * @param CredentialsInterface $credentials
-     * @param LoggerInterface $logger
      *
-     * @return OrderServiceInterface
      * @throws \RuntimeException
      */
     public function createOrderService(

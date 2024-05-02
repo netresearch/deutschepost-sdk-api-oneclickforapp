@@ -15,8 +15,6 @@ interface ContractProductInterface
 {
     /**
      * Obtain the product code (ProdWS ID).
-     *
-     * @return int
      */
     public function getId(): int;
 

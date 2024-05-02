@@ -26,14 +26,8 @@ use DeutschePost\Sdk\OneClickForApp\Model\ShoppingCartPDFResponse;
  */
 abstract class AbstractDecorator extends AbstractClient
 {
-    /**
-     * @var AbstractClient
-     */
-    private $client;
-
-    public function __construct(AbstractClient $client)
+    public function __construct(private AbstractClient $client)
     {
-        $this->client = $client;
     }
 
     public function authenticateUser(AuthenticateUserRequest $requestType): AuthenticateUserResponse

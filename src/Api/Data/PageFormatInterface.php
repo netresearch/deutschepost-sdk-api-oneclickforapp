@@ -23,22 +23,16 @@ interface PageFormatInterface
 
     /**
      * Obtain the page format's id.
-     *
-     * @return int
      */
     public function getId(): int;
 
     /**
      * Obtain the page format's name.
-     *
-     * @return string
      */
     public function getName(): string;
 
     /**
      * Obtain the page format's name.
-     *
-     * @return string
      */
     public function getDescription(): string;
 
@@ -58,43 +52,31 @@ interface PageFormatInterface
 
     /**
      * Obtain the horizontal size of the print format in millimeters.
-     *
-     * @return float
      */
     public function getSizeX(): float;
 
     /**
      * Obtain the vertical size of the print format in millimeters.
-     *
-     * @return float
      */
     public function getSizeY(): float;
 
     /**
      * Check how many items can be printed on the format in X-direction.
-     *
-     * @return int
      */
     public function getColumns(): int;
 
     /**
      * Check how many items can be printed on the format in Y-direction.
-     *
-     * @return int
      */
     public function getRows(): int;
 
     /**
      * Check if an address can be printed on the page format.
-     *
-     * @return bool
      */
     public function isAddressPossible(): bool;
 
     /**
      * Check if an image can be printed on the page format.
-     *
-     * @return bool
      */
     public function isImagePossible(): bool;
 }

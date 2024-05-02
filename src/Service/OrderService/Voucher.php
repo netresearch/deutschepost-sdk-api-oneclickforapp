@@ -12,26 +12,8 @@ use DeutschePost\Sdk\OneClickForApp\Api\Data\VoucherInterface;
 
 class Voucher implements VoucherInterface
 {
-    /**
-     * @var string
-     */
-    private $voucherId;
-
-    /**
-     * @var string|null
-     */
-    private $trackId;
-
-    /**
-     * @var string|null
-     */
-    private $label;
-
-    public function __construct(string $voucherId, ?string $trackId, ?string $label)
+    public function __construct(private string $voucherId, private ?string $trackId, private ?string $label)
     {
-        $this->voucherId = $voucherId;
-        $this->trackId = $trackId;
-        $this->label = $label;
     }
 
     public function getVoucherId(): string

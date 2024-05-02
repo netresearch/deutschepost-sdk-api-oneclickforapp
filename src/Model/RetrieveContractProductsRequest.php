@@ -10,13 +10,7 @@ namespace DeutschePost\Sdk\OneClickForApp\Model;
 
 class RetrieveContractProductsRequest
 {
-    /**
-     * @var string $userToken
-     */
-    private $userToken;
-
-    public function __construct(string $userToken)
+    public function __construct(private string $userToken)
     {
-        $this->userToken = $userToken;
     }
 }

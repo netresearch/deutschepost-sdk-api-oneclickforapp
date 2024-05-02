@@ -12,20 +12,8 @@ use DeutschePost\Sdk\OneClickForApp\Api\Data\ContractProductInterface;
 
 class ContractProduct implements ContractProductInterface
 {
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var int
-     */
-    private $price;
-
-    public function __construct(int $id, int $price)
+    public function __construct(private int $id, private int $price)
     {
-        $this->id = $id;
-        $this->price = $price;
     }
 
     public function getId(): int

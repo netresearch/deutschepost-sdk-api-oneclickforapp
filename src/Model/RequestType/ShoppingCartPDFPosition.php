@@ -10,41 +10,14 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class ShoppingCartPDFPosition
 {
-    /**
-     * @var int $productCode
-     */
-    private $productCode;
+    private ?\DeutschePost\Sdk\OneClickForApp\Model\RequestType\AddressBinding $address = null;
 
-    /**
-     * @var string $voucherLayout
-     */
-    private $voucherLayout;
+    private ?int $imageID = null;
 
-    /**
-     * @var VoucherPosition $position
-     */
-    private $position;
+    private ?string $additionalInfo = null;
 
-    /**
-     * @var AddressBinding|null $address
-     */
-    private $address;
-
-    /**
-     * @var int|null $imageID
-     */
-    private $imageID;
-
-    /**
-     * @var string|null $additionalInfo
-     */
-    private $additionalInfo;
-
-    public function __construct(int $productCode, string $voucherLayout, VoucherPosition $position)
+    public function __construct(private int $productCode, private string $voucherLayout, private VoucherPosition $position)
     {
-        $this->productCode = $productCode;
-        $this->voucherLayout = $voucherLayout;
-        $this->position = $position;
     }
 
     public function setAddress(AddressBinding $address): void

@@ -15,15 +15,11 @@ interface VoucherInterface
 {
     /**
      * Obtain the generated voucher id.
-     *
-     * @return string
      */
     public function getVoucherId(): string;
 
     /**
      * Obtain the track id for international shipments.
-     *
-     * @return string|null
      */
     public function getTrackId(): ?string;
 

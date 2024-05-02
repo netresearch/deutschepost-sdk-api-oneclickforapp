@@ -23,8 +23,6 @@ abstract class AbstractClient
     /**
      * Action to authenticate a user on the system.
      *
-     * @param AuthenticateUserRequest $requestType
-     * @return AuthenticateUserResponse
      *
      * @throws AuthenticationErrorException
      * @throws \SoapFault
@@ -35,8 +33,6 @@ abstract class AbstractClient
     /**
      * Action to provide information on the contract products that are activated for the respective postage account.
      *
-     * @param RetrieveContractProductsRequest $requestType
-     * @return RetrieveContractProductsResponse
      *
      * @throws AuthenticationErrorException
      * @throws \SoapFault
@@ -57,8 +53,6 @@ abstract class AbstractClient
     /**
      * Action to generate Internetmarke stamps.
      *
-     * @param ShoppingCartPDFRequest $requestType
-     * @return ShoppingCartPDFResponse
      *
      * @throws AuthenticationErrorException
      * @throws DetailedErrorException

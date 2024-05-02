@@ -11,18 +11,12 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 class CompanyName
 {
     /**
-     * @var string $company
-     */
-    private $company;
-
-    /**
      * @var PersonName $personName
      */
     protected $personName = null;
 
-    public function __construct(string $company)
+    public function __construct(private string $company)
     {
-        $this->company = $company;
     }
 
     public function setPersonName(PersonName $personName): void

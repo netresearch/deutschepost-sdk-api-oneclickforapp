@@ -18,15 +18,12 @@ use DeutschePost\Sdk\OneClickForApp\Api\TokenStorageInterface;
  */
 class TokenStorage implements TokenStorageInterface
 {
-    /**
-     * @var string
-     */
-    private $token = '';
+    private string $token = '';
 
     /**
      * @var int Expiry unix timestamp (e.g. now + 3600)
      */
-    private $expiry = 0;
+    private int $expiry = 0;
 
     public function readToken(): string
     {
@@ -38,7 +35,7 @@ class TokenStorage implements TokenStorageInterface
         return $this->token;
     }
 
-    public function saveToken(string $token, int $lifetime)
+    public function saveToken(string $token, int $lifetime): void
     {
         $this->expiry = time() + $lifetime;
         $this->token = $token;

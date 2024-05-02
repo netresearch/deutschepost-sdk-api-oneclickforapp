@@ -23,34 +23,21 @@ use DeutschePost\Sdk\OneClickForApp\Model\RequestType\VoucherPosition;
 final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderInterface
 {
     /**
-     * @var PageFormatInterface
-     */
-    private $pageFormat;
-
-    /**
-     * @var VoucherPositionCalculator
-     */
-    private $voucherPositionCalculator;
-
-    /**
      * The amounts collected for all added items.
      *
      * @var int[]
      */
-    private $itemPrices;
+    private array $itemPrices = [];
 
     /**
      * The collected data used to build the request
      *
      * @var mixed[]
      */
-    private $data = [];
+    private array $data = [];
 
-    private function __construct(PageFormatInterface $pageFormat, VoucherPositionCalculator $voucherPositionCalculator)
+    private function __construct(private PageFormatInterface $pageFormat, private VoucherPositionCalculator $voucherPositionCalculator)
     {
-        $this->pageFormat = $pageFormat;
-        $this->voucherPositionCalculator = $voucherPositionCalculator;
-        $this->itemPrices = [];
     }
 
     public static function forPageFormat(PageFormatInterface $pageFormat): ShoppingCartPositionBuilderInterface
@@ -166,7 +153,6 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
      * Create shipper or recipient address based on given address properties.
      *
      * @param string[] $data
-     * @return NamedAddress
      */
     private function createAddress(array $data): NamedAddress
     {
@@ -187,12 +173,12 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
         if (!empty($data['company'])) {
             // company information available
             $company = new CompanyName($data['company']);
-            if ($person) {
+            if ($person instanceof \DeutschePost\Sdk\OneClickForApp\Model\RequestType\PersonName) {
                 $company->setPersonName($person);
             }
         }
 
-        if ($company) {
+        if ($company instanceof \DeutschePost\Sdk\OneClickForApp\Model\RequestType\CompanyName) {
             // either company, optionally with person
             $name->setCompanyName($company);
         } else {
@@ -211,7 +197,7 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
         return new NamedAddress($name, $address);
     }
 
-    public function create()
+    public function create(): \DeutschePost\Sdk\OneClickForApp\Model\RequestType\ShoppingCartPDFPosition
     {
         if (isset($this->data['layout'], $this->data['layout']['page'])) {
             $voucherPosition = new VoucherPosition(

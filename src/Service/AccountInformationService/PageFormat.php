@@ -12,85 +12,8 @@ use DeutschePost\Sdk\OneClickForApp\Api\Data\PageFormatInterface;
 
 class PageFormat implements PageFormatInterface
 {
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $description;
-
-    /**
-     * @var string
-     */
-    private $orientation;
-
-    /**
-     * @var string
-     */
-    private $printMedium;
-
-    /**
-     * @var float
-     */
-    private $sizeX;
-
-    /**
-     * @var float
-     */
-    private $sizeY;
-
-    /**
-     * @var int
-     */
-    private $columns;
-
-    /**
-     * @var int
-     */
-    private $rows;
-
-    /**
-     * @var bool
-     */
-    private $addressPossible;
-
-    /**
-     * @var bool
-     */
-    private $imagePossible;
-
-    public function __construct(
-        int $id,
-        string $name,
-        string $description,
-        string $orientation,
-        string $printMedium,
-        float $sizeX,
-        float $sizeY,
-        int $columns,
-        int $rows,
-        bool $addressPossible,
-        bool $imagePossible
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
-        $this->orientation = $orientation;
-        $this->printMedium = $printMedium;
-        $this->sizeX = $sizeX;
-        $this->sizeY = $sizeY;
-        $this->columns = $columns;
-        $this->rows = $rows;
-        $this->addressPossible = $addressPossible;
-        $this->imagePossible = $imagePossible;
+    public function __construct(private int $id, private string $name, private string $description, private string $orientation, private string $printMedium, private float $sizeX, private float $sizeY, private int $columns, private int $rows, private bool $addressPossible, private bool $imagePossible)
+    {
     }
 
     public function getId(): int

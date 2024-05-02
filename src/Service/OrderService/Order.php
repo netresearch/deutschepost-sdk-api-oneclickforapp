@@ -14,44 +14,10 @@ use DeutschePost\Sdk\OneClickForApp\Api\Data\VoucherInterface;
 class Order implements OrderInterface
 {
     /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var int
-     */
-    private $walletBalance;
-
-    /**
-     * @var string
-     */
-    private $label;
-
-    /**
-     * @var VoucherInterface[]
-     */
-    private $vouchers;
-
-    /**
-     * @var string|null
-     */
-    private $manifest;
-
-    /**
-     * @param string $id
-     * @param int $walletBalance
-     * @param string $label
      * @param VoucherInterface[] $vouchers
-     * @param string|null $manifest
      */
-    public function __construct(string $id, int $walletBalance, string $label, array $vouchers, ?string $manifest)
+    public function __construct(private string $id, private int $walletBalance, private string $label, private array $vouchers, private ?string $manifest)
     {
-        $this->id = $id;
-        $this->walletBalance = $walletBalance;
-        $this->label = $label;
-        $this->vouchers = $vouchers;
-        $this->manifest = $manifest;
     }
 
     public function getId(): string

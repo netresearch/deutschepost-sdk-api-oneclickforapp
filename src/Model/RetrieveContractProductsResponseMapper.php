@@ -22,7 +22,7 @@ class RetrieveContractProductsResponseMapper
     {
         return array_reduce(
             $apiProducts,
-            function (array $products, ContractProductResponseType $apiProduct) {
+            function (array $products, ContractProductResponseType $apiProduct): array {
                 if ($apiProduct->getPrice() !== null) {
                     $products[] = new ContractProduct($apiProduct->getProductCode(), $apiProduct->getPrice());
                 }

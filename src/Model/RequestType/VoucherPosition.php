@@ -10,25 +10,7 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class VoucherPosition
 {
-    /**
-     * @var int $labelX
-     */
-    private $labelX;
-
-    /**
-     * @var int $labelY
-     */
-    private $labelY;
-
-    /**
-     * @var int $page
-     */
-    private $page;
-
-    public function __construct(int $labelX, int $labelY, int $page)
+    public function __construct(private int $labelX, private int $labelY, private int $page)
     {
-        $this->labelX = $labelX;
-        $this->labelY = $labelY;
-        $this->page = $page;
     }
 }

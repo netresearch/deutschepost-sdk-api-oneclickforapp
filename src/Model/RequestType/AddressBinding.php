@@ -10,19 +10,7 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class AddressBinding
 {
-    /**
-     * @var NamedAddress $sender
-     */
-    private $sender;
-
-    /**
-     * @var NamedAddress $receiver
-     */
-    private $receiver;
-
-    public function __construct(NamedAddress $sender, NamedAddress $receiver)
+    public function __construct(private NamedAddress $sender, private NamedAddress $receiver)
     {
-        $this->sender = $sender;
-        $this->receiver = $receiver;
     }
 }

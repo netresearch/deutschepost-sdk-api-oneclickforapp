@@ -25,7 +25,7 @@ class ErrorHandlerDecorator extends AbstractDecorator
         try {
             return parent::authenticateUser($requestType);
         } catch (\SoapFault $fault) {
-            if (isset($fault->detail) && property_exists($fault->detail, 'AuthenticateUserException')) {
+            if (property_exists($fault, 'detail') && $fault->detail !== null && property_exists($fault->detail, 'AuthenticateUserException')) {
                 throw new AuthenticationErrorException($fault->getMessage());
             }
 
@@ -39,7 +39,7 @@ class ErrorHandlerDecorator extends AbstractDecorator
         try {
             return parent::retrieveContractProducts($requestType);
         } catch (\SoapFault $fault) {
-            if (isset($fault->detail) && property_exists($fault->detail, 'IdentifyException')) {
+            if (property_exists($fault, 'detail') && $fault->detail !== null && property_exists($fault->detail, 'IdentifyException')) {
                 throw new AuthenticationErrorException($fault->getMessage());
             }
 
@@ -52,16 +52,14 @@ class ErrorHandlerDecorator extends AbstractDecorator
         try {
             return parent::checkoutShoppingCartPDF($requestType);
         } catch (\SoapFault $fault) {
-            if (isset($fault->detail) && property_exists($fault->detail, 'IdentifyException')) {
+            if (property_exists($fault, 'detail') && $fault->detail !== null && property_exists($fault->detail, 'IdentifyException')) {
                 throw new AuthenticationErrorException($fault->getMessage());
             }
 
-            if (isset($fault->detail) && property_exists($fault->detail, 'ShoppingCartValidationException')) {
+            if (property_exists($fault, 'detail') && $fault->detail !== null && property_exists($fault->detail, 'ShoppingCartValidationException')) {
                 $errors = $fault->detail->ShoppingCartValidationException->errors;
                 $errors = array_map(
-                    function ($error) {
-                        return $error->message;
-                    },
+                    fn($error) => $error->message,
                     is_array($errors) ? $errors : [$errors]
                 );
                 throw new DetailedErrorException(sprintf('%s %s', $fault->getMessage(), implode(' ', $errors)));

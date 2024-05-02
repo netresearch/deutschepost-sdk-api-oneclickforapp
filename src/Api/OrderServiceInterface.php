@@ -21,11 +21,6 @@ interface OrderServiceInterface
      * Create PDF labels for the given order positions.
      *
      * @param object[] $items
-     * @param int $orderTotal
-     * @param int $pageFormat
-     * @param bool $createManifest
-     * @param bool $createShippingList
-     * @return OrderInterface
      *
      * @throws DetailedServiceException
      * @throws ServiceException

@@ -22,29 +22,8 @@ use DeutschePost\Sdk\OneClickForApp\Soap\AbstractClient;
 
 class OrderService implements OrderServiceInterface
 {
-    /**
-     * @var AbstractClient
-     */
-    private $client;
-
-    /**
-     * @var TokenProvider
-     */
-    private $tokenProvider;
-
-    /**
-     * @var ShoppingCartPDFResponseMapper
-     */
-    private $responseMapper;
-
-    public function __construct(
-        AbstractClient $client,
-        TokenProvider $tokenProvider,
-        ShoppingCartPDFResponseMapper $responseMapper
-    ) {
-        $this->client = $client;
-        $this->tokenProvider = $tokenProvider;
-        $this->responseMapper = $responseMapper;
+    public function __construct(private AbstractClient $client, private TokenProvider $tokenProvider, private ShoppingCartPDFResponseMapper $responseMapper)
+    {
     }
 
     public function createOrder(
@@ -67,7 +46,7 @@ class OrderService implements OrderServiceInterface
         try {
             $response = $this->client->checkoutShoppingCartPDF($request);
             return $this->responseMapper->map($response);
-        } catch (AuthenticationErrorException $exception) {
+        } catch (AuthenticationErrorException) {
             $this->tokenProvider->resetToken();
             return $this->createOrder($items, $orderTotal, $pageFormat, $createManifest, $createShippingList);
         } catch (DetailedErrorException $exception) {

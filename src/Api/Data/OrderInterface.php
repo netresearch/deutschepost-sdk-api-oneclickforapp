@@ -15,8 +15,6 @@ interface OrderInterface
 {
     /**
      * Obtain the generated order id.
-     *
-     * @return string
      */
     public function getId(): string;
 
@@ -29,8 +27,6 @@ interface OrderInterface
 
     /**
      * Obtain the PDF label binary with all stamps created for this order.
-     *
-     * @return string
      */
     public function getLabel(): string;
 
@@ -43,8 +39,6 @@ interface OrderInterface
 
     /**
      * Obtain the PDF manifest binary.
-     *
-     * @return string|null
      */
     public function getManifest(): ?string;
 }

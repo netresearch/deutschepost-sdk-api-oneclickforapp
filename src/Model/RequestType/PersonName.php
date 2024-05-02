@@ -10,30 +10,12 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class PersonName
 {
-    /**
-     * @var string $firstname
-     */
-    private $firstname;
+    private ?string $salutation = null;
 
-    /**
-     * @var string $lastname
-     */
-    private $lastname;
+    private ?string $title = null;
 
-    /**
-     * @var string|null $salutation
-     */
-    private $salutation;
-
-    /**
-     * @var string|null $title
-     */
-    private $title;
-
-    public function __construct(string $firstname, string $lastname)
+    public function __construct(private string $firstname, private string $lastname)
     {
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
     }
 
     public function setSalutation(string $salutation): void

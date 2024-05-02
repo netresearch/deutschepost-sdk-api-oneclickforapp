@@ -10,27 +10,15 @@ namespace DeutschePost\Sdk\OneClickForApp\Model\RequestType;
 
 class Name
 {
-    /**
-     * @var PersonName $personName
-     */
-    private $personName;
+    private ?\DeutschePost\Sdk\OneClickForApp\Model\RequestType\PersonName $personName = null;
 
-    /**
-     * @var CompanyName $companyName
-     */
-    private $companyName;
+    private ?\DeutschePost\Sdk\OneClickForApp\Model\RequestType\CompanyName $companyName = null;
 
-    /**
-     * @param PersonName $personName
-     */
     public function setPersonName(PersonName $personName): void
     {
         $this->personName = $personName;
     }
 
-    /**
-     * @param CompanyName $companyName
-     */
     public function setCompanyName(CompanyName $companyName): void
     {
         $this->companyName = $companyName;

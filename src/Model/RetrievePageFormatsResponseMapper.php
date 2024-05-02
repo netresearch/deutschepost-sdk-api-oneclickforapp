@@ -18,30 +18,22 @@ class RetrievePageFormatsResponseMapper
 {
     private function mapOrientation(string $apiOrientation): string
     {
-        switch ($apiOrientation) {
-            case Orientation::LANDSCAPE:
-                return PageFormatInterface::ORIENTATION_LANDSCAPE;
-            case Orientation::PORTRAIT:
-                return PageFormatInterface::ORIENTATION_PORTRAIT;
-            default:
-                return '';
-        }
+        return match ($apiOrientation) {
+            Orientation::LANDSCAPE => PageFormatInterface::ORIENTATION_LANDSCAPE,
+            Orientation::PORTRAIT => PageFormatInterface::ORIENTATION_PORTRAIT,
+            default => '',
+        };
     }
 
     private function mapType(string $apiPageType): string
     {
-        switch ($apiPageType) {
-            case PageType::REGULARPAGE:
-                return PageFormatInterface::PAGE_MEDIUM_REGULAR_PAGE;
-            case PageType::LABELPAGE:
-                return PageFormatInterface::PAGE_MEDIUM_LABEL_PAGE;
-            case PageType::ENVELOPE:
-                return PageFormatInterface::PAGE_MEDIUM_ENVELOPE;
-            case PageType::LABELPRINTER:
-                return PageFormatInterface::PAGE_MEDIUM_LABELPRINTER;
-            default:
-                return '';
-        }
+        return match ($apiPageType) {
+            PageType::REGULARPAGE => PageFormatInterface::PAGE_MEDIUM_REGULAR_PAGE,
+            PageType::LABELPAGE => PageFormatInterface::PAGE_MEDIUM_LABEL_PAGE,
+            PageType::ENVELOPE => PageFormatInterface::PAGE_MEDIUM_ENVELOPE,
+            PageType::LABELPRINTER => PageFormatInterface::PAGE_MEDIUM_LABELPRINTER,
+            default => '',
+        };
     }
 
     /**
