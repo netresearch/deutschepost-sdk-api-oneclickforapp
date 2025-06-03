@@ -24,14 +24,14 @@ use Psr\Log\Test\TestLogger;
 
 class OrderServiceTest extends SoapServiceTestCase
 {
-    public function pageFormatDataProvider(): array
+    public static function pageFormatDataProvider(): array
     {
         return [
             [new PageFormat(1, 'DIN A4 Normalpapier', '', '', 'REGULARPAGE', 210, 297, 2, 5, true, false)]
         ];
     }
 
-    public function wrongPageFormatDataProvider(): array
+    public static function wrongPageFormatDataProvider(): array
     {
         return [
             [new PageFormat(9999, 'DIN A4 Normalpapier', '', '', 'REGULARPAGE', 210, 297, 2, 5, true, false)]
@@ -46,13 +46,12 @@ class OrderServiceTest extends SoapServiceTestCase
      * - response type is correct and contains a PDF label and voucher(s)
      * - communication gets logged with INFO severity
      *
-     * @test
-     * @dataProvider pageFormatDataProvider
      *
-     * @param PageFormat $pageFormat
      * @throws ServiceException
      * @throws \ReflectionException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageFormatDataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function createOrder(PageFormat $pageFormat): void
     {
         $logger = new TestLogger();
@@ -151,13 +150,12 @@ class OrderServiceTest extends SoapServiceTestCase
      * - only instances of ServiceException get thrown
      * - communication gets logged with ERROR severity
      *
-     * @test
-     * @dataProvider pageFormatDataProvider
      *
-     * @param PageFormat $pageFormat
      * @throws ServiceException
      * @throws \ReflectionException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageFormatDataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function createOrderAppAuthenticationError(PageFormat $pageFormat): void
     {
         $this->expectException(ServiceException::class);
@@ -209,13 +207,12 @@ class OrderServiceTest extends SoapServiceTestCase
      * - only instances of ServiceException get thrown
      * - communication gets logged with ERROR severity
      *
-     * @test
-     * @dataProvider pageFormatDataProvider
      *
-     * @param PageFormat $pageFormat
      * @throws ServiceException
      * @throws \ReflectionException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageFormatDataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function createOrderUserAuthenticationError(PageFormat $pageFormat): void
     {
         $this->expectException(ServiceException::class);
@@ -267,14 +264,13 @@ class OrderServiceTest extends SoapServiceTestCase
      *
      * Assert that new token is stored in token storage.
      *
-     * @test
-     * @dataProvider pageFormatDataProvider
      *
-     * @param PageFormat $pageFormat
      * @throws ServiceException
      * @throws \ReflectionException
      */
-    public function createOrderTokenRefresh(PageFormat $pageFormat)
+    #[\PHPUnit\Framework\Attributes\DataProvider('pageFormatDataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function createOrderTokenRefresh(PageFormat $pageFormat): void
     {
         $oldToken = 'invalid token';
         $newToken = 'valid token';
@@ -338,13 +334,12 @@ class OrderServiceTest extends SoapServiceTestCase
      * - only instances of ServiceException get thrown
      * - communication gets logged with ERROR severity
      *
-     * @test
-     * @dataProvider wrongPageFormatDataProvider
      *
-     * @param PageFormat $pageFormat
      * @throws ServiceException
      * @throws \ReflectionException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('wrongPageFormatDataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function createOrderPageFormatError(PageFormat $pageFormat): void
     {
         $this->expectException(ServiceException::class);

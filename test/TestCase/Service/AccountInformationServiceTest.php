@@ -30,9 +30,9 @@ class AccountInformationServiceTest extends SoapServiceTestCase
      * - service response is a non-empty array of page formats
      * - communication gets logged with INFO severity
      *
-     * @test
      * @throws \Exception
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getPageFormats(): void
     {
         $logger = new TestLogger();
@@ -63,9 +63,9 @@ class AccountInformationServiceTest extends SoapServiceTestCase
      * - only instances of ServiceException get thrown
      * - communication gets logged with ERROR severity
      *
-     * @test
      * @throws \Exception
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getPageFormatsAppAuthenticationError(): void
     {
         $this->expectException(ServiceException::class);
@@ -101,9 +101,9 @@ class AccountInformationServiceTest extends SoapServiceTestCase
      * - service response is a non-empty array of contract products
      * - communication gets logged with INFO severity
      *
-     * @test
      * @throws \Exception
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getContractProductsSuccess(): void
     {
         $logger = new TestLogger();
@@ -147,9 +147,9 @@ class AccountInformationServiceTest extends SoapServiceTestCase
      * - only instances of ServiceException get thrown
      * - communication gets logged with ERROR severity
      *
-     * @test
      * @throws \Exception
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getContractProductsAppAuthenticationError(): void
     {
         $this->expectException(ServiceException::class);
@@ -192,9 +192,9 @@ class AccountInformationServiceTest extends SoapServiceTestCase
      * - only instances of ServiceException get thrown
      * - communication gets logged with ERROR severity
      *
-     * @test
      * @throws \Exception
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getContractProductsUserAuthenticationError(): void
     {
         $this->expectException(ServiceException::class);
@@ -236,10 +236,10 @@ class AccountInformationServiceTest extends SoapServiceTestCase
      *
      * Assert that new token is stored in token storage.
      *
-     * @test
      * @throws \Exception
      */
-    public function getContractProductsTokenRefresh()
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function getContractProductsTokenRefresh(): void
     {
         $oldToken = 'invalid token';
         $newToken = 'valid token';

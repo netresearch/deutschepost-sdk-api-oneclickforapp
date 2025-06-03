@@ -22,26 +22,12 @@ use Psr\Log\LogLevel;
 
 class LoggerDecorator extends AbstractDecorator
 {
-    /**
-     * @var \SoapClient
-     */
-    private $soapClient;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    public function __construct(AbstractClient $client, \SoapClient $soapClient, LoggerInterface $logger)
+    public function __construct(AbstractClient $client, private \SoapClient $soapClient, private LoggerInterface $logger)
     {
-        $this->soapClient = $soapClient;
-        $this->logger = $logger;
-
         parent::__construct($client);
     }
 
     /**
-     * @param \Closure $performRequest
      * @return mixed
      * @throws \Exception
      */
@@ -78,9 +64,7 @@ class LoggerDecorator extends AbstractDecorator
 
     public function authenticateUser(AuthenticateUserRequest $requestType): AuthenticateUserResponse
     {
-        $performRequest = function () use ($requestType) {
-            return parent::authenticateUser($requestType);
-        };
+        $performRequest = (fn(): AuthenticateUserResponse => parent::authenticateUser($requestType));
 
         return $this->logCommunication($performRequest);
     }
@@ -88,27 +72,21 @@ class LoggerDecorator extends AbstractDecorator
     public function retrieveContractProducts(
         RetrieveContractProductsRequest $requestType
     ): RetrieveContractProductsResponse {
-        $performRequest = function () use ($requestType) {
-            return parent::retrieveContractProducts($requestType);
-        };
+        $performRequest = (fn(): RetrieveContractProductsResponse => parent::retrieveContractProducts($requestType));
 
         return $this->logCommunication($performRequest);
     }
 
     public function retrievePageFormats(): RetrievePageFormatsResponse
     {
-        $performRequest = function () {
-            return parent::retrievePageFormats();
-        };
+        $performRequest = (fn(): RetrievePageFormatsResponse => parent::retrievePageFormats());
 
         return $this->logCommunication($performRequest);
     }
 
     public function checkoutShoppingCartPDF(ShoppingCartPDFRequest $requestType): ShoppingCartPDFResponse
     {
-        $performRequest = function () use ($requestType) {
-            return parent::checkoutShoppingCartPDF($requestType);
-        };
+        $performRequest = (fn(): ShoppingCartPDFResponse => parent::checkoutShoppingCartPDF($requestType));
 
         return $this->logCommunication($performRequest);
     }

@@ -48,11 +48,6 @@ interface ShoppingCartPositionBuilderInterface
      * This setting does only apply to label formats that allow addresses and will be ignored otherwise.
      *
      * @param string $country 3-digit ISO code
-     * @param string|null $lastName
-     * @param string|null $firstName
-     * @param string|null $salutation
-     * @param string|null $title
-     * @param string|null $streetAddition
      */
     public function setShipperAddress(
         string $company,
@@ -61,22 +56,17 @@ interface ShoppingCartPositionBuilderInterface
         string $city,
         string $streetName,
         string $streetNumber,
-        string $lastName = null,
-        string $firstName = null,
-        string $salutation = null,
-        string $title = null,
-        string $streetAddition = null
+        ?string $lastName = null,
+        ?string $firstName = null,
+        ?string $salutation = null,
+        ?string $title = null,
+        ?string $streetAddition = null
     ): ShoppingCartPositionBuilderInterface;
 
     /**
      * Set consignee address for a shipment (optional).
      *
      * This setting does only apply to label formats that allow addresses and will be ignored otherwise.
-     *
-     * @param string|null $salutation
-     * @param string|null $title
-     * @param string|null $company
-     * @param string|null $streetAddition
      */
     public function setRecipientAddress(
         string $lastName,
@@ -86,10 +76,10 @@ interface ShoppingCartPositionBuilderInterface
         string $city,
         string $streetName,
         string $streetNumber,
-        string $salutation = null,
-        string $title = null,
-        string $company = null,
-        string $streetAddition = null
+        ?string $salutation = null,
+        ?string $title = null,
+        ?string $company = null,
+        ?string $streetAddition = null
     ): ShoppingCartPositionBuilderInterface;
 
     /**

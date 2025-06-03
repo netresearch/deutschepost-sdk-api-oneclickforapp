@@ -28,7 +28,7 @@ class AuthenticateUserResponse
     /**
      * @var string|null $infoMessage
      */
-    private $infoMessage = null;
+    private $infoMessage;
 
     public function getUserToken(): string
     {

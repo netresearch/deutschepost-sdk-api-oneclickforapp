@@ -52,7 +52,7 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
 
     public function getTotalAmount(): int
     {
-        return (int) array_sum($this->itemPrices);
+        return array_sum($this->itemPrices);
     }
 
     public function setItemDetails(int $productId, int $price): ShoppingCartPositionBuilderInterface
@@ -77,11 +77,11 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
         string $city,
         string $streetName,
         string $streetNumber,
-        string $lastName = null,
-        string $firstName = null,
-        string $salutation = null,
-        string $title = null,
-        string $streetAddition = null
+        ?string $lastName = null,
+        ?string $firstName = null,
+        ?string $salutation = null,
+        ?string $title = null,
+        ?string $streetAddition = null
     ): ShoppingCartPositionBuilderInterface {
         $this->data['shipper']['company'] = $company;
         $this->data['shipper']['country'] = $country;
@@ -106,10 +106,10 @@ final class ShoppingCartPositionBuilder implements ShoppingCartPositionBuilderIn
         string $city,
         string $streetName,
         string $streetNumber,
-        string $salutation = null,
-        string $title = null,
-        string $company = null,
-        string $streetAddition = null
+        ?string $salutation = null,
+        ?string $title = null,
+        ?string $company = null,
+        ?string $streetAddition = null
     ): ShoppingCartPositionBuilderInterface {
         $this->data['recipient']['lastName'] = $lastName;
         $this->data['recipient']['firstName'] = $firstName;

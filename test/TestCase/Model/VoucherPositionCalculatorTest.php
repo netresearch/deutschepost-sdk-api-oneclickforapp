@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class VoucherPositionCalculatorTest extends TestCase
 {
-    public function dataProvider(): array
+    public static function dataProvider(): array
     {
         return [
             // one item per page
@@ -38,18 +38,11 @@ class VoucherPositionCalculatorTest extends TestCase
     }
 
     /**
-     * @test
-     * @dataProvider dataProvider
      *
-     * @param int $pageColumns
-     * @param int $pageRows
-     * @param int $itemNumber
-     * @param int $resultPage
-     *
-     * @param int $resultColumn
-     * @param int $resultRow
      * @throws \ReflectionException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getVoucherPosition(
         int $pageColumns,
         int $pageRows,
@@ -61,7 +54,7 @@ class VoucherPositionCalculatorTest extends TestCase
         $calculator = new VoucherPositionCalculator();
         $position = $calculator->getVoucherPosition($pageColumns, $pageRows, $itemNumber);
 
-        $reflectionClass = new \ReflectionClass(get_class($position));
+        $reflectionClass = new \ReflectionClass($position::class);
 
         $reflectionProperty = $reflectionClass->getProperty('page');
         $reflectionProperty->setAccessible(true);

@@ -7,3 +7,4 @@ parameters:
         - '#is never written, only read\.$#'
         - '#is never read, only written\.$#'
         - '#Zend_Pdf#'
+        - '#Call to function property_exists\(\) with SoapFault and ''detail'' will always evaluate to true\.#'

@@ -13,7 +13,7 @@ class CompanyName
     /**
      * @var PersonName $personName
      */
-    protected $personName = null;
+    protected $personName;
 
     public function __construct(private string $company)
     {
