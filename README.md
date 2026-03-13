@@ -1,3 +1,5 @@
+> **⚠️ DEPRECATED:** This package is abandoned and no longer maintained. Use [`deutschepost/sdk-api-internetmarke`](https://github.com/netresearch/deutschepost-sdk-api-internetmarke) instead.
+
 # Deutsche Post INTERNETMARKE 1C4A API SDK
 
 The DP OneClickForApp API SDK package offers an interface to the following web services:
@@ -65,7 +67,7 @@ The full process is outlined as follows:
 The web service requires an authentication token for some operations.
 The library retrieves a token but discards it after the process terminates.
 In order to reuse the token, a persistent storage can be passed in
-([Persist Authentication Token](#persist-authentication-token)). 
+([Persist Authentication Token](#persist-authentication-token)).
 
 ### Retrieve Page Formats
 
@@ -152,7 +154,7 @@ $credentials = new \DeutschePost\Sdk\OneClickForApp\Auth\Credentials(
 $serviceFactory = new \DeutschePost\Sdk\OneClickForApp\Service\ServiceFactory();
 $service = $serviceFactory->createAccountInformationService($credentials, $logger);
 
-// work with the web service response, e.g. replace PPL prices 
+// work with the web service response, e.g. replace PPL prices
 foreach ($service->getContractProducts() as $contractProduct) {
     $prodWsProduct = $this->productRepository->get($pplId = $contractProduct->getId());
     $prodWsProduct->setPrice($contractProduct->getPrice());
